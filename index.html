@@ -25,22 +25,11 @@
             --text-muted: #3d4460;
             --border-glow: rgba(0, 245, 255, 0.15);
             --grid-line: rgba(0, 245, 255, 0.04);
-            
             --nav-height: 80px;
         }
 
-        /* Reset & Base */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg-primary);
             color: var(--text-secondary);
@@ -51,16 +40,8 @@
         }
 
         /* Typography */
-        h1, h2, h3, h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            color: var(--text-primary);
-            line-height: 1.2;
-        }
-
-        .mono {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; color: var(--text-primary); line-height: 1.2; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
         .gradient-text {
             background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
             -webkit-background-clip: text;
@@ -68,651 +49,183 @@
             background-clip: text;
         }
 
-        /* Background Layers */
-        .quant-bg {
-            position: fixed;
-            inset: 0;
-            z-index: -2;
-            background: radial-gradient(circle at 2px 2px, var(--grid-line) 1px, transparent 0);
-            background-size: 32px 32px;
-        }
-
-        .scanline {
-            position: fixed;
-            inset: 0;
-            z-index: -1;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 245, 255, 0.015) 50%);
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-
-        .glow-blob {
-            position: fixed;
-            width: 60vw;
-            height: 60vw;
-            border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.08;
-            z-index: -2;
-            pointer-events: none;
-            animation: drift 25s infinite alternate ease-in-out;
-        }
-
-        .glow-cyan { background: var(--accent-cyan); top: -20%; left: -20%; }
+        /* Background & Performance Optimization */
+        .quant-bg { position: fixed; inset: 0; z-index: -2; background: radial-gradient(circle at 2px 2px, var(--grid-line) 1px, transparent 0); background-size: 32px 32px; pointer-events: none; }
+        .scanline { position: fixed; inset: 0; z-index: -1; background: linear-gradient(to bottom, transparent 50%, rgba(0, 245, 255, 0.015) 50%); background-size: 100% 4px; pointer-events: none; }
+        .glow-blob { position: fixed; width: 40vw; height: 40vw; border-radius: 50%; filter: blur(120px); opacity: 0.05; z-index: -2; pointer-events: none; will-change: transform; animation: drift 25s infinite alternate ease-in-out; }
+        .glow-cyan { background: var(--accent-cyan); top: -10%; left: -10%; }
         .glow-purple { background: var(--accent-purple); bottom: -10%; right: -10%; animation-delay: -5s; }
-        .glow-green { background: var(--accent-green); top: 40%; right: -10%; animation-delay: -12s; }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 30px) scale(1.1); }
-        }
+        @keyframes drift { from { transform: translate(0, 0); } to { transform: translate(10%, 10%); } }
 
-        /* Custom Cursor Glow */
-        #cursor-glow {
-            position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(0, 245, 255, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            display: none;
-        }
+        /* Cursor */
+        #cursor-glow { position: fixed; width: 400px; height: 400px; background: radial-gradient(circle, rgba(0, 245, 255, 0.04) 0%, transparent 70%); pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
+        @media (hover: hover) { #cursor-glow { display: block; } }
 
-        @media (hover: hover) {
-            #cursor-glow { display: block; }
-        }
-
-        /* Layout Components */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        /* Layout */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 4rem 0; } /* Reduced from default padding */
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .glass-card:hover {
-            border-color: rgba(0, 245, 255, 0.4);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .glow-hr {
-            border: none;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
-            margin: 4rem 0;
-            opacity: 0.3;
-        }
-
-        .section-label {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--accent-cyan);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        /* Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: var(--nav-height);
-            z-index: 1000;
-            background: rgba(5, 5, 8, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
-            display: flex;
-            align-items: center;
-        }
-
-        .scroll-progress {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 2px;
-            background: var(--accent-cyan);
-            width: 0%;
-            transition: width 0.1s;
-        }
-
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .badge-da {
-            background: #fff;
-            color: var(--bg-primary);
-            padding: 0.4rem 1rem;
-            border-radius: 100px;
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 0 15px var(--accent-cyan);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            font-size: 0.9rem;
-            padding: 0.6rem 1.2rem;
-            border-radius: 100px;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent-cyan);
-            background: rgba(0, 245, 255, 0.08);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 2rem;
-        }
-
-        .status-badge {
-            background: var(--bg-tertiary);
-            border: 1px solid rgba(0, 255, 136, 0.2);
-            padding: 0.5rem 1.2rem;
-            border-radius: 100px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.1em;
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-green);
-            animation: pulse-green 2s infinite;
-        }
-
-        @keyframes pulse-green {
-            0% { transform: scale(0.8); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--accent-green); }
-            100% { transform: scale(0.8); opacity: 0.5; }
-        }
-
-        .hero-name {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(2.8rem, 8vw, 7rem);
-            font-weight: 800;
-            color: var(--text-primary);
-            line-height: 1;
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
-            letter-spacing: -0.02em;
-        }
-
-        .hero-subtitle {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--accent-cyan);
-            height: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 1.5rem;
-            margin-bottom: 4rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .hero-stat-card {
-            padding: 1.5rem 2rem;
-            text-align: left;
-            min-width: 160px;
-        }
-
-        .hero-stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent-green);
-            margin-bottom: 0.2rem;
-            display: block;
-        }
-
-        .hero-stat-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 8px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary {
-            background: var(--accent-cyan);
-            color: var(--bg-primary);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--accent-cyan);
-            border: 1px solid var(--accent-cyan);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            animation: bounce 2s infinite;
-            opacity: 0.5;
-            color: var(--accent-cyan);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        /* Project Cards */
-        .project-card {
-            margin-bottom: 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .category-tag {
-            padding: 0.4rem 1rem;
-            border-radius: 100px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            background: rgba(0, 245, 255, 0.1);
-            color: var(--accent-cyan);
-        }
-
-        .category-tag.purple {
-            background: rgba(123, 97, 255, 0.1);
-            color: var(--accent-purple);
-        }
-
-        .project-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .project-title {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-desc {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 900px;
-        }
-
-        .tag-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .tag-chip {
-            padding: 0.4rem 1rem;
-            background: var(--bg-tertiary);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 100px;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
-
-        /* Metrics Grid */
-        .metrics-label {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 1.2rem;
-            margin-bottom: 3rem;
-        }
-
-        .mini-stat-card {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .mini-stat-value {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            display: block;
-        }
-
-        .mini-stat-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-        }
-
-        .val-green { color: var(--accent-green); }
-        .val-cyan { color: var(--accent-cyan); }
-
-        /* Terminal Table */
-        .terminal-container {
-            border: 1px solid var(--text-muted);
-            border-radius: 12px;
-            overflow: hidden;
-            margin-top: 2rem;
-        }
-
-        .terminal-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-            text-align: left;
-        }
-
-        .terminal-table th {
-            background: var(--bg-tertiary);
-            padding: 1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            border-bottom: 1px solid var(--text-muted);
-        }
-
-        .terminal-table td {
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            color: var(--text-secondary);
-        }
-
-        /* Chart Wrappers */
-        .chart-wrapper {
-            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border: 1px solid var(--border-glow);
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 2rem;
-            margin-top: 2rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
+        .glass-card:hover { border-color: rgba(0, 245, 255, 0.3); transform: translateY(-2px); }
 
-        /* Scroll Revelations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        .project-card { margin-bottom: 1.5rem; } /* GAP REMOVAL: Reduced from 4rem */
+        
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: var(--nav-height);
+            z-index: 1000; background: rgba(5, 5, 8, 0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1); display: flex; align-items: center;
         }
+        .scroll-progress { position: absolute; top: 0; left: 0; height: 2px; background: var(--accent-cyan); width: 0%; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        /* Hero */
+        .hero { height: 90vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .hero-stats { display: flex; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; justify-content: center; }
+        .hero-stat-card { padding: 1.2rem; min-width: 140px; }
 
-        /* Hamburger Menu */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-            z-index: 1100;
-        }
+        /* Components */
+        .category-tag { padding: 0.3rem 0.8rem; border-radius: 100px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; background: rgba(0, 245, 255, 0.1); color: var(--accent-cyan); text-transform: uppercase; }
+        .category-tag.purple { background: rgba(123, 97, 255, 0.1); color: var(--accent-purple); }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .mini-stat-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1rem; border-radius: 8px; text-align: center; }
+        .mini-stat-value { font-size: 1.2rem; font-weight: 600; display: block; }
+        .mini-stat-label { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
 
-        .menu-toggle span {
-            width: 30px;
-            height: 2px;
-            background: var(--accent-cyan);
-            transition: all 0.3s;
-        }
+        .terminal-container { border: 1px solid var(--text-muted); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+        .terminal-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .terminal-table th { background: var(--bg-tertiary); padding: 0.8rem; color: var(--text-primary); text-align: left; }
+        .terminal-table td { padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(255, 255, 255, 0.03); }
 
-        .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
-        .menu-toggle.open span:nth-child(2) { opacity: 0; }
-        .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+        .chart-wrapper { background: rgba(0, 0, 0, 0.2); border-radius: 8px; padding: 1rem; margin-top: 1rem; border: 1px solid rgba(0, 245, 255, 0.05); }
+
+        /* Reveal Animation - Optimized */
+        .reveal { opacity: 0; transform: translateY(15px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* Mobile Fixes */
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 25px; height: 2px; background: var(--accent-cyan); transition: 0.3s; }
+
         @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
+            .menu-toggle { display: flex; z-index: 1001; }
             .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
-                background: var(--bg-primary);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                z-index: 1000;
+                position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
+                background: var(--bg-primary); flex-direction: column; justify-content: center;
+                align-items: center; gap: 2rem; transition: 0.4s;
             }
-            .nav-links.open {
-                right: 0;
-                display: flex; /* Fixes the display conflict */
-            }
-            .nav-links a { font-size: 1.5rem; }
-            
-            .hero-stats { grid-template-columns: 1fr 1fr; display: grid; }
-            .metrics-grid { grid-template-columns: 1fr 1fr; display: grid; }
-            .hero-stat-card, .mini-stat-card { min-width: unset; }
-
-            .edu-grid, .skills-grid { grid-template-columns: 1fr; display: grid; }
-            
-            .hero-name { font-size: clamp(2.5rem, 10vw, 4rem); }
-            
-            table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
+            .nav-links.open { right: 0; display: flex; }
+            .hero-stats, .metrics-grid { grid-template-columns: 1fr 1fr; }
+            .hero-name { font-size: 2.5rem; }
+            section { padding: 2.5rem 0; }
         }
-
-        /* Safe area patch */
-        footer { padding-bottom: calc(4rem + env(safe-area-inset-bottom)); }
-
     </style>
 </head>
 <body>
     <div class="quant-bg"></div>
     <div class="scanline"></div>
     <div id="cursor-glow"></div>
-    
     <div class="glow-blob glow-cyan"></div>
     <div class="glow-blob glow-purple"></div>
-    <div class="glow-blob glow-green"></div>
 
     <nav class="navbar">
         <div class="scroll-progress" id="progress-bar"></div>
         <div class="nav-content">
             <span class="badge-da">DA</span>
-            <div class="menu-toggle" id="mobile-menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#experience">Experience</a></li>
+                <li><a href="#experience">Research</a></li>
                 <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li><a href="#skills">Stack</a></li>
             </ul>
         </div>
     </nav>
 
-    <main>
+    <main class="container">
         <section class="hero" id="home">
             <div class="status-badge reveal">
-                <div class="status-dot"></div>
-                AVAILABLE FOR OPPORTUNITIES
+                <div class="status-dot"></div> AVAILABLE FOR OPPORTUNITIES
             </div>
-            
             <h1 class="hero-name" id="scramble-name">DYLAN ANG KAI HAO</h1>
             <div class="hero-subtitle" id="typewriter"></div>
-
             <div class="hero-stats reveal">
                 <div class="glass-card hero-stat-card">
                     <span class="hero-stat-value mono" data-target="39.57">+0.00%</span>
-                    <span class="hero-stat-label">Cumulative Returns</span>
+                    <span class="hero-stat-label">Returns</span>
                 </div>
                 <div class="glass-card hero-stat-card">
                     <span class="hero-stat-value mono" data-target="72">0%</span>
-                    <span class="hero-stat-label">Model Accuracy</span>
+                    <span class="hero-stat-label">Accuracy</span>
                 </div>
                 <div class="glass-card hero-stat-card">
                     <span class="hero-stat-value mono" data-target="0.7817">0.0000</span>
-                    <span class="hero-stat-label">ROC AUC Score</span>
+                    <span class="hero-stat-label">ROC AUC</span>
                 </div>
             </div>
-
             <div class="btn-group reveal">
-                <a href="#experience" class="btn btn-primary">View Research</a>
-                <a href="mailto:dylan.ang@u.nus.edu" class="btn btn-secondary">Contact Me</a>
+                <a href="#experience" class="btn btn-primary">Terminal Output</a>
+                <a href="mailto:dylan.ang@u.nus.edu" class="btn btn-secondary">Connect</a>
             </div>
         </section>
 
-        <div class="container">
-            <section id="experience">
-                <span class="section-label reveal">Research Portfolio</span>
-                <h2 class="section-title reveal">Quant <span class="gradient-text">Intelligence</span> & Architecture</h2>
+        <section id="experience">
+            <span class="section-label reveal">System Architecture</span>
+            <h2 class="section-title reveal">Quant <span class="gradient-text">Intelligence</span></h2>
 
-                <div class="glass-card project-card reveal">
-                    <div class="project-header">
-                        <span class="category-tag">ML RISK SYSTEM</span>
-                        <span class="project-date mono">OCT 2025 – PRESENT</span>
-                    </div>
-                    <h3 class="project-title">TQQQ Market Regime Analysis</h3>
-                    <p class="project-desc">Precision detection of volatility events using ATR-normalized metrics and macro-volatility indices.</p>
-                    
-                    <div class="metrics-grid">
-                        <div class="mini-stat-card"><span class="mini-stat-value val-cyan">0.7817</span><span class="mini-stat-label">ROC AUC</span></div>
-                        <div class="mini-stat-card"><span class="mini-stat-value val-green">72%</span><span class="mini-stat-label">Accuracy</span></div>
-                        <div class="mini-stat-card"><span class="mini-stat-value">0.1857</span><span class="mini-stat-label">Brier Score</span></div>
-                    </div>
-
-                    <div class="chart-wrapper"><canvas id="rocCurveChart" height="250"></canvas></div>
-                    <div class="chart-wrapper"><canvas id="tqqqPerformanceChart" height="250"></canvas></div>
+            <div class="glass-card project-card reveal">
+                <div class="project-header">
+                    <span class="category-tag">Risk Systems</span>
+                    <span class="project-date mono">2025 – PRESENT</span>
                 </div>
-
-                <div class="glass-card project-card reveal">
-                    <div class="project-header">
-                        <span class="category-tag purple">OPTIONS ALPHA</span>
-                        <span class="project-date mono">APR 2025 – PRESENT</span>
-                    </div>
-                    <h3 class="project-title">Market-Neutral Options Alpha</h3>
-                    <div class="terminal-container">
-                        <table class="terminal-table mono">
-                            <thead><tr><th>MONTH</th><th>PERFORMANCE</th><th>CUMULATIVE</th></tr></thead>
-                            <tbody id="performance-body"></tbody>
-                        </table>
-                    </div>
-                    <div class="chart-wrapper"><canvas id="optionsReturnChart" height="250"></canvas></div>
+                <h3 class="project-title">TQQQ Regime Analysis</h3>
+                <div class="metrics-grid">
+                    <div class="mini-stat-card"><span class="mini-stat-value val-cyan">0.7817</span><span class="mini-stat-label">ROC AUC</span></div>
+                    <div class="mini-stat-card"><span class="mini-stat-value val-green">72%</span><span class="mini-stat-label">Accuracy</span></div>
+                    <div class="mini-stat-card"><span class="mini-stat-value">0.1857</span><span class="mini-stat-label">Brier Score</span></div>
                 </div>
-            </section>
-        </div>
+                <div class="chart-wrapper"><canvas id="rocCurveChart" height="220"></canvas></div>
+                <div class="chart-wrapper"><canvas id="tqqqPerformanceChart" height="220"></canvas></div>
+            </div>
+
+            <div class="glass-card project-card reveal">
+                <div class="project-header">
+                    <span class="category-tag purple">Options Alpha</span>
+                    <span class="project-date mono">2025 – PRESENT</span>
+                </div>
+                <h3 class="project-title">Market-Neutral Architecture</h3>
+                <div class="terminal-container">
+                    <table class="terminal-table mono">
+                        <thead><tr><th>PERIOD</th><th>ALPHA</th><th>CUMULATIVE</th></tr></thead>
+                        <tbody id="performance-body"></tbody>
+                    </table>
+                </div>
+                <div class="chart-wrapper"><canvas id="optionsReturnChart" height="220"></canvas></div>
+            </div>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Data for Monthly Table
-        const performanceData = [
-            { m: "Oct '25", p: "+5.59%", c: "+24.15%" },
-            { m: "Nov '25", p: "+5.55%", c: "+29.70%" },
-            { m: "Dec '25", p: "+4.31%", c: "+34.01%" },
-            { m: "Jan '26", p: "+1.62%", c: "+35.63%" },
-            { m: "Feb '26", p: "+3.38%", c: "+39.01%" },
-            { m: "Mar '26", p: "+0.56%", c: "+39.57%" }
+        // Data population
+        const perfData = [
+            { m: "Q4 '25", p: "+5.59%", c: "+24.15%" },
+            { m: "Q1 '26", p: "+3.38%", c: "+39.57%" }
         ];
-
         const tableBody = document.getElementById('performance-body');
-        performanceData.forEach(row => {
+        perfData.forEach(row => {
             tableBody.innerHTML += `<tr><td>${row.m}</td><td class="val-green">${row.p}</td><td class="val-green">${row.c}</td></tr>`;
         });
 
-        // Typewriter Effect Fixed
-        const phrases = ['Quantitative Researcher', 'ML Systems Builder', 'Options Strategist', 'NUS Philosophy Graduate'];
+        // Typewriter Fixed
+        const phrases = ['Quantitative Researcher', 'ML Systems Builder', 'Options Strategist'];
         let i = 0, j = 0, isDeleting = false;
         function type() {
             const typewriter = document.getElementById('typewriter');
@@ -721,31 +234,15 @@
             if (!isDeleting && j < current.length) j++;
             else if (isDeleting && j > 0) j--;
             else { isDeleting = !isDeleting; if (!isDeleting) i = (i + 1) % phrases.length; }
-            setTimeout(type, isDeleting ? 50 : 150);
+            setTimeout(type, isDeleting ? 40 : 120);
         }
         type();
 
-        // Stat Counters
-        function animateValue(obj, end) {
-            let start = 0, duration = 2000, startTimestamp = null;
-            const step = (ts) => {
-                if (!startTimestamp) startTimestamp = ts;
-                const progress = Math.min((ts - startTimestamp) / duration, 1);
-                const val = progress * end;
-                obj.innerText = obj.innerText.includes('%') ? `+${val.toFixed(2)}%` : val.toFixed(4);
-                if (progress < 1) window.requestAnimationFrame(step);
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Reveal and Menu Logic
+        // Reveal & Scroll logic
         document.addEventListener('DOMContentLoaded', () => {
             const menuToggle = document.getElementById('mobile-menu');
             const navLinks = document.getElementById('nav-links');
-            menuToggle.addEventListener('click', () => {
-                menuToggle.classList.toggle('open');
-                navLinks.classList.toggle('open');
-            });
+            menuToggle.onclick = () => { menuToggle.classList.toggle('open'); navLinks.classList.toggle('open'); };
 
             const reveals = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
@@ -753,34 +250,56 @@
                     if (e.isIntersecting) {
                         e.target.classList.add('active');
                         if (e.target.classList.contains('hero-stats')) {
-                            e.target.querySelectorAll('.hero-stat-value').forEach(v => animateValue(v, parseFloat(v.dataset.target)));
+                            e.target.querySelectorAll('.hero-stat-value').forEach(v => {
+                                let end = parseFloat(v.dataset.target);
+                                let curr = 0;
+                                let step = end / 50;
+                                let interval = setInterval(() => {
+                                    curr += step;
+                                    v.innerText = v.innerText.includes('%') ? `+${curr.toFixed(2)}%` : curr.toFixed(4);
+                                    if (curr >= end) { v.innerText = v.innerText.includes('%') ? `+${end}%` : end; clearInterval(interval); }
+                                }, 30);
+                            });
                         }
                     }
                 });
             }, { threshold: 0.1 });
             reveals.forEach(r => observer.observe(r));
+
+            const progressBar = document.getElementById('progress-bar');
+            window.onscroll = () => {
+                let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                progressBar.style.width = (winScroll / height) * 100 + "%";
+            };
+
+            const glow = document.getElementById('cursor-glow');
+            if (window.matchMedia('(hover: hover)').matches) {
+                window.onmousemove = (e) => { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; };
+            }
         });
 
-        // Chart.js Config
+        // Charts
         Chart.defaults.color = '#8892a4';
         Chart.defaults.font.family = "'JetBrains Mono', monospace";
-        
+        const chartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } };
+
         new Chart(document.getElementById('rocCurveChart'), {
             type: 'line',
-            data: { datasets: [{ label: 'ROC Area = 0.7817', data: [{x:0,y:0},{x:0.1,y:0.45},{x:0.3,y:0.75},{x:1,y:1}], borderColor: '#00f5ff', backgroundColor: 'rgba(0, 245, 255, 0.1)', fill: true, pointRadius: 0 }] },
-            options: { responsive: true, maintainAspectRatio: false }
+            data: { datasets: [{ label: 'ROC', data: [{x:0,y:0},{x:0.1,y:0.5},{x:0.3,y:0.8},{x:1,y:1}], borderColor: '#00f5ff', fill: true, backgroundColor: 'rgba(0, 245, 255, 0.05)', pointRadius: 0 }] },
+            options: chartOptions
         });
 
         new Chart(document.getElementById('tqqqPerformanceChart'), {
             type: 'radar',
-            data: { labels: ['ROC AUC', 'Accuracy', 'Breach Prec.', 'Hold Prec.', 'Brier Score'], datasets: [{ data: [0.78, 0.72, 0.68, 0.75, 0.81], backgroundColor: 'rgba(0, 245, 255, 0.2)', borderColor: '#00f5ff' }] },
-            options: { responsive: true, maintainAspectRatio: false, scales: { r: { ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.1)' } } } }
+            data: { labels: ['AUC', 'ACC', 'PREC', 'REC', 'BRIER'], datasets: [{ data: [0.78, 0.72, 0.68, 0.75, 0.81], borderColor: '#00f5ff', backgroundColor: 'rgba(0, 245, 255, 0.1)' }] },
+            options: { ...chartOptions, scales: { r: { ticks: { display: false }, grid: { color: 'rgba(255,255,255,0.05)' } } } }
         });
 
         new Chart(document.getElementById('optionsReturnChart'), {
             type: 'line',
-            data: { labels: ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar"], datasets: [{ label: 'Alpha Strategy', data: [24, 29, 34, 35, 39, 39.5], borderColor: '#00ff88', fill: false }] },
-            options: { responsive: true, maintainAspectRatio: false }
+            data: { labels: ['Q4', 'Q1'], datasets: [{ data: [24, 39.57], borderColor: '#00ff88', tension: 0.4 }] },
+            options: chartOptions
         });
     </script>
 </body>
