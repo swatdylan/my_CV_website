@@ -1,27 +1,833 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dylan Ang Kai Hao - Quantitative Researcher</title>
-    <meta name="description"
-        content="Resume of Dylan Ang Kai Hao, specializing in Quantitative Research and Data Analytics.">
+    <meta name="theme-color" content="#050508">
+    <title>Dylan Ang Kai Hao | Quant & ML Systems</title>
+    <meta name="description" content="Portfolio of Dylan Ang Kai Hao, specializing in Quantitative Research, Machine Learning, and Options Strategy.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@800&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --bg-primary: #050508;
+            --bg-secondary: #0a0a12;
+            --bg-tertiary: #0f0f1a;
+            --accent-cyan: #00f5ff;
+            --accent-green: #00ff88;
+            --accent-purple: #7b61ff;
+            --accent-orange: #ff6b35;
+            --text-primary: #f0f4ff;
+            --text-secondary: #8892a4;
+            --text-muted: #3d4460;
+            --border-glow: rgba(0, 245, 255, 0.15);
+            --grid-line: rgba(0, 245, 255, 0.04);
+            
+            --nav-height: 80px;
+            --section-padding: clamp(4rem, 10vw, 8rem);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Space+Grotesk', sans-serif;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Background Layers */
+        .quant-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 2px 2px, var(--grid-line) 1px, transparent 0);
+            background-size: 32px 32px;
+        }
+
+        .scanline {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 245, 255, 0.015) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .glow-blob {
+            position: fixed;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            z-index: -2;
+            pointer-events: none;
+            animation: drift 25s infinite alternate ease-in-out;
+        }
+
+        .glow-cyan { background: var(--accent-cyan); top: -20%; left: -20%; }
+        .glow-purple { background: var(--accent-purple); bottom: -10%; right: -10%; animation-delay: -5s; }
+        .glow-green { background: var(--accent-green); top: 40%; right: -10%; animation-delay: -12s; }
+
+        @keyframes drift {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 30px) scale(1.1); }
+        }
+
+        /* Custom Cursor Glow */
+        #cursor-glow {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        @media (hover: hover) {
+            #cursor-glow { display: block; }
+        }
+
+        /* Layout Components */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 245, 255, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .glow-hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            margin: 4rem 0;
+            opacity: 0.3;
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            z-index: 1000;
+            background: rgba(5, 5, 8, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .scroll-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .badge-da {
+            background: #fff;
+            color: var(--bg-primary);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 100px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--accent-cyan);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0, 245, 255, 0.08);
+        }
+
+        .nav-links a:hover::after {
+            width: 60%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .status-badge {
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            padding: 0.5rem 1.2rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px var(--accent-green); }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        .hero-name {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.8rem, 8vw, 7rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--accent-cyan);
+            height: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .hero-stat-card {
+            padding: 1.5rem 2rem;
+            text-align: left;
+            min-width: 160px;
+        }
+
+        .hero-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.2rem;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-cyan);
+            border: 1px solid var(--accent-cyan);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: bounce 2s infinite;
+            opacity: 0.5;
+            color: var(--accent-cyan);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Research Section */
+        .project-card {
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg, 
+                transparent 45%, 
+                rgba(255, 255, 255, 0.03) 50%, 
+                transparent 55%
+            );
+            transform: rotate(-45deg);
+            transition: all 0.7s;
+            pointer-events: none;
+        }
+
+        .project-card:hover::before {
+            left: 100%;
+            top: 100%;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .category-tag {
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            background: rgba(0, 245, 255, 0.1);
+            color: var(--accent-cyan);
+        }
+
+        .category-tag.purple {
+            background: rgba(123, 97, 255, 0.1);
+            color: var(--accent-purple);
+        }
+
+        .project-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .project-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 900px;
+        }
+
+        .tag-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .tag-chip {
+            padding: 0.4rem 1rem;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Metrics Grid */
+        .metrics-label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .mini-stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .mini-stat-value {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .mini-stat-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .val-green { color: var(--accent-green); }
+        .val-cyan { color: var(--accent-cyan); }
+
+        /* Terminal Table */
+        .terminal-container {
+            border: 1px solid var(--text-muted);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+
+        .terminal-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .terminal-table th {
+            background: var(--bg-tertiary);
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--text-muted);
+        }
+
+        .terminal-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+        }
+
+        .terminal-table tr:hover {
+            background: rgba(0, 245, 255, 0.05);
+        }
+
+        .terminal-table tr.pos-row {
+            border-left: 3px solid var(--accent-green);
+        }
+
+        /* Chart Wrappers */
+        .chart-wrapper {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Publication */
+        .pub-card {
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 2rem;
+        }
+
+        .pub-title {
+            font-family: 'Syne', sans-serif;
+            font-style: italic;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+
+        .forthcoming-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: rgba(255, 107, 53, 0.1);
+            color: var(--accent-orange);
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .orange-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-orange);
+            border-radius: 50%;
+            animation: pulse-orange 2s infinite;
+        }
+
+        @keyframes pulse-orange {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0.5; }
+        }
+
+        /* Education */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .gpa-container {
+            margin: 1.5rem 0;
+        }
+
+        .gpa-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-green);
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Skills Matrix */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            text-align: left;
+        }
+
+        .skill-cat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-icon-wrap {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 245, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .skill-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .skill-pill {
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            cursor: default;
+        }
+
+        .skill-pill:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 245, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        /* Marquee */
+        .marquee-container {
+            margin-top: 5rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .marquee-content {
+            display: flex;
+            gap: 3rem;
+            animation: marquee 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        .marquee-content:hover {
+            animation-play-state: paused;
+        }
+
+        .marquee-item {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .marquee-item::before {
+            content: '●';
+            color: var(--accent-cyan);
+            font-size: 0.6rem;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 6rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Scroll Revelations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hamburger Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1100;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: all 0.3s;
+        }
+
+        .menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+        .menu-toggle.open span:nth-child(2) { opacity: 0; }
+        .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1000;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
 <body>
-    <div class="glow-bg"></div>
+    <div class="quant-bg"></div>
+    <div class="scanline"></div>
+    <div id="cursor-glow"></div>
+    
+    <div class="glow-blob glow-cyan"></div>
+    <div class="glow-blob glow-purple"></div>
+    <div class="glow-blob glow-green"></div>
 
     <nav class="navbar">
+        <div class="scroll-progress" id="progress-bar"></div>
         <div class="nav-content">
-            <span class="logo">DA</span>
-            <ul class="nav-links">
+            <span class="badge-da">DA</span>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -30,374 +836,636 @@
     </nav>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero" id="home">
-            <div class="hero-content fade-up">
-                <h2 class="greeting">Hello, I'm</h2>
-                <h1 class="name">Dylan Ang <span class="gradient-text">Kai Hao</span></h1>
-                <p class="tagline">Quantitative Researcher & Data Analyst</p>
-                <div class="contact-info">
-                    <a href="mailto:dylan.ang@u.nus.edu" class="contact-link">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path
-                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        dylan.ang@u.nus.edu
-                    </a>
-                    <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" class="contact-link">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path
-                                d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                        LinkedIn
-                    </a>
-                    <span class="contact-link text-only">
-                        <svg viewBox="0 0 24 24" fill="none" class="icon">
-                            <path
-                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        +65 96862893
-                    </span>
+            <div class="status-badge reveal">
+                <div class="status-dot"></div>
+                AVAILABLE FOR OPPORTUNITIES
+            </div>
+            
+            <h1 class="hero-name" id="scramble-name">DYLAN ANG KAI HAO</h1>
+            <div class="hero-subtitle" id="typewriter"></div>
+
+            <div class="hero-stats reveal">
+                <div class="glass-card hero-stat-card">
+                    <span class="hero-stat-value mono" data-target="39.57">+0.00%</span>
+                    <span class="hero-stat-label">Cumulative Returns</span>
                 </div>
+                <div class="glass-card hero-stat-card">
+                    <span class="hero-stat-value mono" data-target="72">0%</span>
+                    <span class="hero-stat-label">Model Accuracy</span>
+                </div>
+                <div class="glass-card hero-stat-card">
+                    <span class="hero-stat-value mono" data-target="0.7817">0.0000</span>
+                    <span class="hero-stat-label">ROC AUC Score</span>
+                </div>
+            </div>
+
+            <div class="btn-group reveal">
+                <a href="#experience" class="btn btn-primary">View Research</a>
+                <a href="mailto:dylan.ang@u.nus.edu" class="btn btn-secondary">Contact Me</a>
+            </div>
+
+            <div class="scroll-indicator">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                </svg>
             </div>
         </section>
 
-        <section id="experience" class="section">
-            <h2 class="section-title fade-up">Research <span class="gradient-text">Experience</span></h2>
+        <div class="container">
+            <!-- Research Experience -->
+            <section id="experience" class="section">
+                <span class="section-label reveal">Research Portfolio</span>
+                <h2 class="section-title reveal">Quant <span class="gradient-text">Intelligence</span> & Architecture</h2>
 
-            <div class="timeline">
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">TQQQ Market Regime Analysis & Risk Mitigation System</h3>
-                        <span class="date">Oct 2025 – Present</span>
+                <!-- Project 1 -->
+                <div class="glass-card project-card reveal">
+                    <div class="project-header">
+                        <span class="category-tag">ML RISK SYSTEM</span>
+                        <span class="project-date mono">OCT 2025 – PRESENT</span>
                     </div>
-                    <h4 class="company">Advanced Quantitative Risk Modeling</h4>
+                    <h3 class="project-title">TQQQ Market Regime Analysis & Risk Mitigation System</h3>
+                    <p class="project-desc">
+                        A robust machine learning architecture designed for high-precision detection of significant market volatility events within the TQQQ equity structure. Utilizing ATR-normalized metrics and macro-volatility indices, the system generates high-integrity signals to inform tactical risk management and capital allocation strategies.
+                    </p>
+                    <div class="tag-chips">
+                        <span class="tag-chip">Walk-Forward OOS</span>
+                        <span class="tag-chip">XGBoost Classification</span>
+                        <span class="tag-chip">Expanding Window</span>
+                        <span class="tag-chip">Minimal Complexity</span>
+                    </div>
 
-                    <div class="project-showcase">
-                        <div class="project-description full-width">
-                            <p>A robust machine learning architecture designed for high-precision detection of
-                                significant market volatility events within the TQQQ equity structure. Utilizing
-                                ATR-normalized metrics and macro-volatility indices, the system generates high-integrity
-                                signals to inform tactical risk management and capital allocation strategies.</p>
-
-                            <div class="methodology-tags">
-                                <span class="tag">Walk-Forward Out-Of-Sample (OOS)</span>
-                                <span class="tag">Expanding Window Architecture</span>
-                                <span class="tag">XGBoost Classification</span>
-                                <span class="tag">Minimal Feature Complexity</span>
-                            </div>
+                    <span class="metrics-label">Performance Validation (516 Weeks OOS)</span>
+                    <div class="metrics-grid">
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-cyan">0.7817</span>
+                            <span class="mini-stat-label">ROC AUC</span>
+                        </div>
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-green">72%</span>
+                            <span class="mini-stat-label">Accuracy</span>
+                        </div>
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono">0.1857</span>
+                            <span class="mini-stat-label">Brier Score</span>
+                        </div>
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-green">68%</span>
+                            <span class="mini-stat-label">Breach Detection</span>
+                        </div>
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-green">75%</span>
+                            <span class="mini-stat-label">Hold Reliability</span>
                         </div>
                     </div>
 
-                    <div class="metrics-dashboard">
-                        <h4>Out-Of-Sample Performance Validation (516 Weeks)</h4>
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <h5>Classification Metrics</h5>
-                                <table class="data-table">
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>ROC AUC</strong></td>
-                                            <td class="positive">0.7817</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Accuracy</strong></td>
-                                            <td class="positive">72%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Brier Score</strong></td>
-                                            <td>0.1857</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <div class="chart-wrapper">
+                        <canvas id="rocCurveChart" height="300"></canvas>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="tqqqPerformanceChart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card project-card reveal">
+                    <div class="project-header">
+                        <span class="category-tag purple">OPTIONS ALPHA</span>
+                        <span class="project-date mono">APR 2025 – PRESENT</span>
+                    </div>
+                    <h3 class="project-title">Market-Neutral Options Alpha Strategy</h3>
+                    <p class="project-desc">
+                        A sophisticated market-neutral options architecture engineered for consistent yield generation regardless of broad market direction. By maintaining a strict delta-neutral profile and leveraging volatility harvesting techniques, the strategy provides a high-integrity, zero-beta return stream that is decoupled from equity market volatility.
+                    </p>
+                    <div class="tag-chips">
+                        <span class="tag-chip">Delta-Neutral</span>
+                        <span class="tag-chip">Vega/Gamma Scalping</span>
+                        <span class="tag-chip">Market-Neutral Alpha</span>
+                        <span class="tag-chip">Systematic Risk Hedging</span>
+                    </div>
+
+                    <span class="metrics-label">Strategy Yield Analysis</span>
+                    <div class="metrics-grid">
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-green">+39.57%</span>
+                            <span class="mini-stat-label">Total Cumulative</span>
+                        </div>
+                        <div class="mini-stat-card">
+                            <span class="mini-stat-value mono val-green">100%</span>
+                            <span class="mini-stat-label">Monthly Success Rate</span>
+                        </div>
+                    </div>
+
+                    <div class="terminal-container">
+                        <table class="terminal-table mono">
+                            <thead>
+                                <tr>
+                                    <th>MONTH</th>
+                                    <th>PERFORMANCE</th>
+                                    <th>CUMULATIVE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="performance-body">
+                                <!-- Data populated by JS for cleaner HTML -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <canvas id="optionsReturnChart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Publication -->
+                <div class="glass-card pub-card reveal">
+                    <span class="section-label">Forthcoming Publication</span>
+                    <h3 class="pub-title">“Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness”</h3>
+                    <p class="text-secondary">The Red Stone Journal: An Undergraduate Journal of NUS Philosophy, Vol. 5(1)</p>
+                    <div class="forthcoming-badge">
+                        <div class="orange-dot"></div>
+                        EXPECTED 2026
+                    </div>
+                </div>
+
+                <div class="glass-card project-card reveal" style="margin-top: 4rem;">
+                    <div class="project-header">
+                        <span class="category-tag">DATA ANALYTICS</span>
+                        <span class="project-date mono">JAN 2020 – AUG 2021</span>
+                    </div>
+                    <h3 class="project-title">Data & Administrative Analytics</h3>
+                    <span class="company">Singapore Armed Forces (National Service)</span>
+                    <p class="project-desc">Managed and validated large-scale administrative datasets with 100% accuracy requirements for senior leadership reporting. Automating data workflows using Excel VBA.</p>
+                </div>
+            </section>
+
+            <hr class="glow-hr">
+
+            <!-- Education -->
+            <section id="education" class="section">
+                <span class="section-label reveal">Academic Foundation</span>
+                <h2 class="section-title reveal">Quantitative <span class="gradient-text">Philosophy</span></h2>
+
+                <div class="edu-grid">
+                    <div class="glass-card reveal">
+                        <h3 class="role">Bachelor of Arts (1st Class Hons)</h3>
+                        <p class="text-primary" style="margin: 0.5rem 0;">National University of Singapore</p>
+                        <p class="text-secondary">Major in Philosophy | Minor in Language Science</p>
+                        
+                        <div class="gpa-container">
+                            <div class="gpa-header">
+                                <span class="mono">GPA 4.53 / 5.0</span>
+                                <span class="mono">90.6%</span>
                             </div>
-                            <div class="metric-card">
-                                <h5>Precision Analysis</h5>
-                                <table class="data-table">
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Breach Detection</strong></td>
-                                            <td class="positive">68%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Hold Reliability</strong></td>
-                                            <td class="positive">75%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: 90.6%;"></div>
                             </div>
-                            <div class="metric-card">
-                                <h5>Discriminative Power (ROC Curve)</h5>
-                                <div class="chart-container">
-                                    <canvas id="rocCurveChart"></canvas>
-                                </div>
-                            </div>
-                            <div class="metric-card">
-                                <h5>Explainable Alpha: Signal Logic</h5>
-                                <div class="chart-container">
-                                    <canvas id="tqqqPerformanceChart"></canvas>
-                                </div>
-                            </div>
+                        </div>
+
+                        <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">AUG 2021 – DEC 2025</p>
+                    </div>
+                    
+                    <div class="glass-card reveal">
+                        <span class="metrics-label">Relevant Coursework</span>
+                        <div class="tag-chips">
+                            <span class="tag-chip">Quantitative Reasoning</span>
+                            <span class="tag-chip">First-order Logic</span>
+                            <span class="tag-chip">Computational Reasoning</span>
+                            <span class="tag-chip">Python Programming</span>
+                            <span class="tag-chip">VBA Automation</span>
+                            <span class="tag-chip">Inquiry into Beliefs</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="glow-hr">
+
+            <!-- Skills -->
+            <section id="skills" class="section">
+                <span class="section-label reveal">Tech Stack</span>
+                <h2 class="section-title reveal">System <span class="gradient-text">Proficiencies</span></h2>
+
+                <div class="skills-grid">
+                    <div class="skill-category reveal">
+                        <div class="skill-cat-header">
+                            <div class="skill-icon-wrap">💻</div>
+                            <h3>Programming</h3>
+                        </div>
+                        <div class="skill-pills">
+                            <span class="skill-pill mono">Python</span>
+                            <span class="skill-pill mono">Pandas</span>
+                            <span class="skill-pill mono">NumPy</span>
+                            <span class="skill-pill mono">Scikit-learn</span>
+                            <span class="skill-pill mono">Excel VBA</span>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal" style="transition-delay: 0.1s;">
+                        <div class="skill-cat-header">
+                            <div class="skill-icon-wrap">📊</div>
+                            <h3>Analytics</h3>
+                        </div>
+                        <div class="skill-pills">
+                            <span class="skill-pill mono">Statistical Modeling</span>
+                            <span class="skill-pill mono">Feature Engineering</span>
+                            <span class="skill-pill mono">Hypothesis Testing</span>
+                            <span class="skill-pill mono">Model Validation</span>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal" style="transition-delay: 0.2s;">
+                        <div class="skill-cat-header">
+                            <div class="skill-icon-wrap">🛠️</div>
+                            <h3>Tools</h3>
+                        </div>
+                        <div class="skill-pills">
+                            <span class="skill-pill mono">Excel Expert</span>
+                            <span class="skill-pill mono">MS Office</span>
+                            <span class="skill-pill mono">Git</span>
+                            <span class="skill-pill mono">Machine Learning</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">Market-Neutral Options Alpha Strategy</h3>
-                        <span class="date">Apr 2025 – Present</span>
+                <div class="marquee-container reveal">
+                    <div class="marquee-content" id="marquee">
+                        <!-- Repeated for infinite effect -->
+                        <span class="marquee-item">ANALYTICAL MINDSET</span>
+                        <span class="marquee-item">DATA INTEGRITY</span>
+                        <span class="marquee-item">FAST LEARNER</span>
+                        <span class="marquee-item">CROSS-FUNCTIONAL TEAMS</span>
+                        <span class="marquee-item">DETAIL ORIENTED</span>
+                        <span class="marquee-item">INDEPENDENT RESEARCH</span>
+                        <!-- Second half -->
+                        <span class="marquee-item">ANALYTICAL MINDSET</span>
+                        <span class="marquee-item">DATA INTEGRITY</span>
+                        <span class="marquee-item">FAST LEARNER</span>
+                        <span class="marquee-item">CROSS-FUNCTIONAL TEAMS</span>
+                        <span class="marquee-item">DETAIL ORIENTED</span>
+                        <span class="marquee-item">INDEPENDENT RESEARCH</span>
                     </div>
-                    <h4 class="company">Proprietary Quantitative Yield Generation</h4>
+                </div>
+            </section>
 
-                    <div class="project-showcase">
-                        <div class="project-description full-width">
-                            <p>A sophisticated market-neutral options architecture engineered for consistent yield
-                                generation regardless of broad market direction. By maintaining a strict delta-neutral
-                                profile and leveraging volatility harvesting techniques, the strategy provides a
-                                high-integrity, zero-beta return stream that is decoupled from equity market volatility.
-                            </p>
+            <hr class="glow-hr">
 
-                            <div class="methodology-tags">
-                                <span class="tag">Delta-Neutral</span>
-                                <span class="tag">Vega/Gamma Scalping</span>
-                                <span class="tag">Market-Neutral Alpha</span>
-                                <span class="tag">Systematic Risk Hedging</span>
-                            </div>
+            <!-- Leadership -->
+            <section id="leadership" class="section">
+                <span class="section-label reveal">Leadership</span>
+                <h2 class="section-title reveal">Discipline & <span class="gradient-text">Command</span></h2>
+
+                <div class="edu-grid">
+                    <div class="glass-card reveal">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 class="role">National Team – Triathlon</h3>
+                            <span class="project-date mono">2022 – PRES</span>
                         </div>
+                        <p class="text-secondary" style="margin-top: 1rem;">15+ hours weekly intensive training while maintaining first-class honors. Applying evidence-based training strategies through research.</p>
                     </div>
-
-                    <div class="metrics-dashboard">
-                        <h4>Strategy Performance Analysis (Percentage Yield)</h4>
-                        <div class="metrics-grid">
-                            <div class="metric-card">
-                                <h5>Cumulative Performance Summary</h5>
-                                <table class="data-table">
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Total Cumulative Return</strong></td>
-                                            <td class="positive">+39.57%</td>
-                                        </tr>
-                                        <tr>
-                                            <td><strong>Monthly Success Rate</strong></td>
-                                            <td class="positive">100%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="metric-card">
-                                <h5>Monthly Breakdown (%)</h5>
-                                <table class="data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Month</th>
-                                            <th>Monthly %</th>
-                                            <th>Cum %</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Apr '25</td>
-                                            <td class="positive">+1.86%</td>
-                                            <td class="positive">+1.86%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>May '25</td>
-                                            <td class="positive">+3.91%</td>
-                                            <td class="positive">+5.77%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jun '25</td>
-                                            <td class="positive">+3.60%</td>
-                                            <td class="positive">+9.37%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jul '25</td>
-                                            <td class="positive">+1.99%</td>
-                                            <td class="positive">+11.36%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Aug '25</td>
-                                            <td class="positive">+3.23%</td>
-                                            <td class="positive">+14.59%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sep '25</td>
-                                            <td class="positive">+3.97%</td>
-                                            <td class="positive">+18.56%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Oct '25</td>
-                                            <td class="positive">+5.59%</td>
-                                            <td class="positive">+24.15%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nov '25</td>
-                                            <td class="positive">+5.55%</td>
-                                            <td class="positive">+29.70%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dec '25</td>
-                                            <td class="positive">+4.31%</td>
-                                            <td class="positive">+34.01%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Jan '26</td>
-                                            <td class="positive">+1.62%</td>
-                                            <td class="positive">+35.63%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Feb '26</td>
-                                            <td class="positive">+3.38%</td>
-                                            <td class="positive">+39.01%</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mar '26 (MTD)</td>
-                                            <td class="positive">+0.56%</td>
-                                            <td class="positive">+39.57%</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="metric-card full-width">
-                                <h5>Cumulative Return Over Time (%)</h5>
-                                <div class="chart-container" style="height: 300px;">
-                                    <canvas id="optionsReturnChart"></canvas>
-                                </div>
-                            </div>
+                    <div class="glass-card reveal">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3 class="role">Club President</h3>
+                            <span class="project-date mono">2018 – 2019</span>
                         </div>
+                        <h4 class="company" style="font-size: 0.9rem; margin-bottom: 0.5rem;">Galaxy Astronomy Club</h4>
+                        <p class="text-secondary">Led planning and execution of large-scale community events. Managed logistics and stakeholder coordination for educational programs.</p>
                     </div>
                 </div>
-
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">Publication (Forthcoming, 2026)</h3>
-                    </div>
-                    <h4 class="company">The Red Stone Journal: An Undergraduate Journal of NUS Philosophy, Vol. 5(1)
-                    </h4>
-                    <ul class="duties">
-                        <li>“Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of
-                            Consciousness”</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">Data & Administrative Analytics</h3>
-                        <span class="date">Jan 2020 – Aug 2021</span>
-                    </div>
-                    <h4 class="company">Singapore Armed Forces (National Service)</h4>
-                    <ul class="duties">
-                        <li>Managed and validated large-scale administrative datasets with 100% accuracy requirements
-                            for senior leadership reporting.</li>
-                        <li>Automated recurring data workflows using Excel VBA, significantly reducing manual errors and
-                            turnaround time.</li>
-                        <li>Produced structured summaries and dashboards to support planning and operational
-                            decision-making.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="education" class="section">
-            <h2 class="section-title fade-up"><span class="gradient-text">Education</span></h2>
-            <div class="glass-card fade-up">
-                <div class="card-header">
-                    <h3 class="role">Bachelor of Arts (First Class Hons)</h3>
-                    <span class="date">Aug 2021 - Dec 2025</span>
-                </div>
-                <h4 class="company">National University of Singapore</h4>
-                <div class="edu-details">
-                    <p><strong>Major:</strong> Philosophy | <strong>Minor:</strong> Language Science</p>
-                    <p><strong>GPA:</strong> 4.53/5.0</p>
-                    <p><strong>Relevant Coursework:</strong> Quantitative Reasoning with Data, Computational Reasoning
-                        (Excel VBA), First-order Logic, Introduction to Programming with Python, Inquiry into Current
-                        Sporting Beliefs and Practices.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="leadership" class="section">
-            <h2 class="section-title fade-up">Leadership & <span class="gradient-text">Extracurriculars</span></h2>
-
-            <div class="grid-2">
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">National Team – Triathlon</h3>
-                        <span class="date">Apr 2022 – Present</span>
-                    </div>
-                    <ul class="duties">
-                        <li>Applied evidence-based training strategies informed by self-directed research and literature
-                            review.</li>
-                        <li>Balanced 10–15 intensive training sessions per week alongside full-time academic
-                            commitments, demonstrating exceptional discipline and time management.</li>
-                    </ul>
-                </div>
-
-                <div class="glass-card fade-up">
-                    <div class="card-header">
-                        <h3 class="role">President</h3>
-                        <span class="date">Jan 2018 – Sep 2019</span>
-                    </div>
-                    <h4 class="company">Galaxy Astronomy Club (Woodlands Galaxy CC)</h4>
-                    <ul class="duties">
-                        <li>Led planning and execution of community events and educational programmes.</li>
-                        <li>Managed logistics, schedules, and stakeholder coordination.</li>
-                        <li>Communicated technical concepts clearly to non-technical audiences.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="skills" class="section">
-            <h2 class="section-title fade-up">Technical <span class="gradient-text">Skills</span></h2>
-
-            <div class="skills-grid">
-                <div class="glass-card skill-card fade-up">
-                    <div class="skill-icon">💻</div>
-                    <h3>Programming</h3>
-                    <p>Python (Pandas, NumPy, Scikit-learn), Excel VBA / Macros.</p>
-                </div>
-                <div class="glass-card skill-card fade-up">
-                    <div class="skill-icon">📊</div>
-                    <h3>Analytics</h3>
-                    <p>Statistical Analysis, Hypothesis Testing, Feature Engineering, Model Validation.</p>
-                </div>
-                <div class="glass-card skill-card fade-up">
-                    <div class="skill-icon">🛠️</div>
-                    <h3>Tools</h3>
-                    <p>Microsoft Excel, Microsoft Office Suite, Machine Learning (regression, tree-based models).</p>
-                </div>
-                <div class="glass-card skill-card fade-up">
-                    <div class="skill-icon">🔬</div>
-                    <h3>Methods</h3>
-                    <p>Hypothesis Testing, Statistical Modelling (Regression, Probability), Literature Review.</p>
-                </div>
-            </div>
-
-            <div class="glass-card strengths-card fade-up">
-                <h3>Additional Strengths</h3>
-                <ul class="strengths-list">
-                    <li>Strong analytical and problem-solving mindset</li>
-                    <li>Detail-oriented with high standards for data integrity</li>
-                    <li>Fast learner in new technical and domain-specific tools</li>
-                    <li>Comfortable working independently or in cross-functional teams</li>
-                </ul>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Dylan Ang Kai Hao. Built with stunning modern design.</p>
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+            <div class="badge-da">DA</div>
+            <p class="text-muted" style="font-size: 0.9rem;">&copy; 2026 Dylan Ang Kai Hao. Built with Quant Terminal architecture.</p>
+            <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+                <a href="mailto:dylan.ang@u.nus.edu" class="text-secondary" style="text-decoration: none;">Email</a>
+                <a href="https://www.linkedin.com/in/dylanangkh" class="text-secondary" style="text-decoration: none;">LinkedIn</a>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
-</body>
+    <script>
+        // Data for Monthly Table
+        const performanceData = [
+            { m: "Apr '25", p: "+1.86%", c: "+1.86%" },
+            { m: "May '25", p: "+3.91%", c: "+5.77%" },
+            { m: "Jun '25", p: "+3.60%", c: "+9.37%" },
+            { m: "Jul '25", p: "+1.99%", c: "+11.36%" },
+            { m: "Aug '25", p: "+3.23%", c: "+14.59%" },
+            { m: "Sep '25", p: "+3.97%", c: "+18.56%" },
+            { m: "Oct '25", p: "+5.59%", c: "+24.15%" },
+            { m: "Nov '25", p: "+5.55%", c: "+29.70%" },
+            { m: "Dec '25", p: "+4.31%", c: "+34.01%" },
+            { m: "Jan '26", p: "+1.62%", c: "+35.63%" },
+            { m: "Feb '26", p: "+3.38%", c: "+39.01%" },
+            { m: "Mar '26", p: "+0.56%", c: "+39.57%" }
+        ];
 
+        // Populate Table
+        const tableBody = document.getElementById('performance-body');
+        performanceData.forEach(row => {
+            const tr = document.createElement('tr');
+            tr.className = 'pos-row';
+            tr.innerHTML = `
+                <td>${row.m}</td>
+                <td class="val-green">${row.p}</td>
+                <td class="val-green">${row.c}</td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        // Scramble Text Effect
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) {
+                        complete++;
+                        output += to;
+                    } else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.randomChar();
+                            this.queue[i].char = char;
+                        }
+                        output += `<span class="mono" style="color: var(--accent-cyan);">${char}</span>`;
+                    } else {
+                        output += from;
+                    }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) {
+                    this.resolve();
+                } else {
+                    this.frameRequest = requestAnimationFrame(this.update);
+                    this.frame++;
+                }
+            }
+            randomChar() {
+                return this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        }
+
+        const scrambleContainer = document.getElementById('scramble-name');
+        const fx = new TextScramble(scrambleContainer);
+        setTimeout(() => fx.setText("DYLAN ANG KAI HAO"), 500);
+
+        // Typewriter Effect
+        const phrases = [
+            'Quantitative Researcher',
+            'ML Systems Builder',
+            'Options Strategist',
+            'NUS Philosophy Graduate'
+        ];
+        let i = 0;
+        let j = 0;
+        let currentPhrase = [];
+        let isDeleting = false;
+        let isEnd = false;
+
+        function loop() {
+            isEnd = false;
+            const typewriter = document.getElementById('typewriter');
+            
+            if (i < phrases.length) {
+                if (!isDeleting && j <= phrases[i].length) {
+                    currentPhrase.push(phrases[i][j]);
+                    j++;
+                    typewriter.innerHTML = currentPhrase.join('') + '<span style="color: var(--accent-cyan);">|</span>';
+                }
+
+                if (isDeleting && j <= phrases[i].length) {
+                    currentPhrase.pop(phrases[i][j]);
+                    j--;
+                    typewriter.innerHTML = currentPhrase.join('') + '<span style="color: var(--accent-cyan);">|</span>';
+                }
+
+                if (j == phrases[i].length) {
+                    isEnd = true;
+                    isDeleting = true;
+                }
+
+                if (isDeleting && j == 0) {
+                    currentPhrase = [];
+                    isDeleting = false;
+                    i++;
+                    if (i == phrases.length) i = 0;
+                }
+            }
+            const speedUp = Math.random() * (80 - 50) + 50;
+            const normalSpeed = Math.random() * (300 - 200) + 200;
+            const time = isEnd ? 2000 : isDeleting ? speedUp : normalSpeed;
+            setTimeout(loop, time);
+        }
+        loop();
+
+        // Stat Counters
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                let val = progress * (end - start) + start;
+                
+                if (obj.innerText.includes('%')) {
+                    obj.innerText = '+' + val.toFixed(2) + '%';
+                } else if (obj.innerText.includes('.')) {
+                    obj.innerText = val.toFixed(4);
+                } else {
+                    obj.innerText = Math.floor(val);
+                }
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                   // Ensure final value is exact
+                   if (obj.getAttribute('data-target') === '39.57') obj.innerText = '+39.57%';
+                   else if (obj.getAttribute('data-target') === '72') obj.innerText = '72%';
+                   else if (obj.getAttribute('data-target') === '0.7817') obj.innerText = '0.7817';
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Reveal animations and scroll features
+        document.addEventListener('DOMContentLoaded', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            const progress = document.getElementById('progress-bar');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Trigger counters if this is the hero stats
+                        if (entry.target.classList.contains('hero-stats')) {
+                            const counters = entry.target.querySelectorAll('.hero-stat-value');
+                            counters.forEach(c => {
+                                const target = parseFloat(c.getAttribute('data-target'));
+                                animateValue(c, 0, target, 2000);
+                            });
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach(r => revealObserver.observe(r));
+
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                progress.style.width = scrolled + "%";
+            });
+
+            // Mobile menu toggle
+            const menuToggle = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    menuToggle.classList.toggle('open');
+                    navLinks.classList.toggle('open');
+                });
+            }
+
+            // Close menu when a link is clicked
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    menuToggle.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            // Cursor glow
+            const glow = document.getElementById('cursor-glow');
+            window.addEventListener('mousemove', (e) => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+            });
+        });
+
+        // Chart.js Implementations (Styled for Dark Mode)
+        Chart.defaults.color = '#8892a4';
+        Chart.defaults.font.family = "'JetBrains Mono', monospace";
+        
+        // ROC Curve
+        const rocCtx = document.getElementById('rocCurveChart');
+        if (rocCtx) {
+            new Chart(rocCtx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'ROC Area = 0.7817',
+                        data: [{x:0,y:0},{x:0.02,y:0.1},{x:0.05,y:0.3},{x:0.1,y:0.45},{x:0.15,y:0.55},{x:0.2,y:0.62},{x:0.25,y:0.7},{x:0.3,y:0.75},{x:0.4,y:0.8},{x:0.5,y:0.85},{x:0.6,y:0.9},{x:0.8,y:0.95},{x:1,y:1}],
+                        borderColor: '#00f5ff',
+                        backgroundColor: 'rgba(0, 245, 255, 0.1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Random',
+                        data: [{x:0,y:0}, {x:1,y:1}],
+                        borderColor: 'rgba(255,255,255,0.1)',
+                        borderDash: [5, 5],
+                        borderWidth: 1,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { type: 'linear', grid: { color: 'rgba(255,255,255,0.05)' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' } }
+                    },
+                    plugins: { legend: { labels: { color: '#f0f4ff' } } }
+                }
+            });
+        }
+
+        // Radar Chart
+        const radarCtx = document.getElementById('tqqqPerformanceChart');
+        if (radarCtx) {
+            new Chart(radarCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['ROC AUC', 'Accuracy', 'Breach Precision', 'Hold Precision', 'Brier', 'Generaliz.'],
+                    datasets: [{
+                        label: 'Risk Params',
+                        data: [0.78, 0.72, 0.68, 0.75, 0.81, 0.90],
+                        backgroundColor: 'rgba(0, 245, 255, 0.2)',
+                        borderColor: '#00f5ff',
+                        pointBackgroundColor: '#00f5ff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { r: { grid: { color: 'rgba(255,255,255,0.1)' }, angleLines: { color: 'rgba(255,255,255,0.1)' }, ticks: { display: false } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Cumulative Return Chart
+        const returnCtx = document.getElementById('optionsReturnChart');
+        if (returnCtx) {
+            new Chart(returnCtx, {
+                type: 'line',
+                data: {
+                    labels: ["Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26"],
+                    datasets: [{
+                        label: 'Alpha Strategy',
+                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 39.57],
+                        borderColor: '#00ff88',
+                        backgroundColor: 'rgba(0, 255, 136, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }, {
+                        label: 'S&P 500',
+                        data: [8.22, 12.30, 18.14, 20.44, 23.73, 26.58, 26.68, 28.78, 30.21, 32.03, 30.84, 30.88],
+                        borderColor: 'rgba(255,255,255,0.3)',
+                        borderDash: [5,5],
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { ticks: { callback: v => '+' + v + '%' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        x: { grid: { display: false } }
+                    },
+                    plugins: { legend: { labels: { color: '#f0f4ff' } } }
+                }
+            });
+        }
+    </script>
+</body>
 </html>
