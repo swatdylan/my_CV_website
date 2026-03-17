@@ -7,7 +7,6 @@
     <title>Dylan Ang Kai Hao | Quant & ML Systems</title>
     <meta name="description" content="Portfolio of Dylan Ang Kai Hao, specializing in Quantitative Research, Machine Learning, and Options Strategy.">
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@800&display=swap" rel="stylesheet">
@@ -289,7 +288,6 @@
             height: 8px;
             background: var(--accent-green);
             border-radius: 50%;
-            border-radius: 50%;
             box-shadow: 0 0 10px var(--accent-green);
             animation: pulse-green 2s infinite;
         }
@@ -364,6 +362,9 @@
             overflow: hidden;
             cursor: pointer;
             border: none;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .btn-primary {
@@ -777,30 +778,6 @@
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
-        @media (max-width: 768px) {
-            .menu-toggle { display: flex; }
-            .nav-links {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 100%;
-                height: 100vh;
-                background: var(--bg-primary);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                z-index: 1000;
-            }
-            .nav-links.open {
-                right: 0;
-            }
-            .nav-links a {
-                font-size: 1.5rem;
-            }
-        }
-
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation: none !important;
@@ -816,22 +793,37 @@
         @media (max-width: 768px) {
             /* Navigation */
             .nav-links, nav ul { display: none; }
-            .menu-toggle { display: flex; }
+            .nav-links.open {
+                display: flex;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                z-index: 1000;
+            }
+            .nav-links a { font-size: 1.5rem; }
+            .menu-toggle, .hamburger, .nav-toggle { display: flex; }
             nav, .navbar, header nav { padding: 0.75rem 1rem; }
 
             /* Hero */
             .hero, #hero { padding: 6rem 1.25rem 3rem; min-height: 100svh; text-align: center; }
-            .hero h1, #hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); word-break: break-word; }
-            .stats-row, .hero-stats, .counter-row { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-            .cta-buttons, .hero-buttons, .button-row, .btn-group { flex-direction: column; align-items: center; gap: 0.75rem; }
-            .cta-buttons a, .cta-buttons button, .btn { width: 100%; max-width: 320px; min-height: 44px; }
+            .hero-name, .hero h1, #hero h1 { font-size: clamp(2rem, 10vw, 3.5rem); word-break: break-word; }
+            .hero-stats, .stats-row, .counter-row { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+            .btn-group, .cta-buttons, .hero-buttons, .button-row { flex-direction: column; align-items: center; gap: 0.75rem; }
+            .btn, .cta-buttons a, .cta-buttons button { width: 100%; max-width: 320px; min-height: 44px; display: inline-flex; justify-content: center; }
 
             /* Sections & Cards */
-            section { padding: 3rem 1.25rem; }
-            .card, .project-card, .experience-card, .glass-card { width: 100%; padding: 1.25rem; }
-            .grid-2col, .grid-3col, .metrics-grid { grid-template-columns: 1fr !important; }
+            section, .section { padding: 3rem 1.25rem; }
+            .glass-card, .card, .project-card, .experience-card { width: 100%; padding: 1.25rem; }
+            .metrics-grid, .grid-2col, .grid-3col { grid-template-columns: 1fr !important; }
             .skills-grid, .skill-cards { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-            .tags, .chips, .tag-row, .tag-chips { flex-wrap: wrap; gap: 0.5rem; }
+            .tag-chips, .tags, .chips, .tag-row { flex-wrap: wrap; gap: 0.5rem; }
 
             /* Tables */
             table {
@@ -847,9 +839,9 @@
             table::-webkit-scrollbar-thumb { background: #00f5ff; border-radius: 2px; }
 
             /* Typography */
-            h2 { font-size: clamp(1.4rem, 5vw, 2rem); }
-            h3 { font-size: clamp(1.1rem, 4vw, 1.5rem); }
-            p, li { font-size: clamp(0.875rem, 3vw, 1rem); line-height: 1.7; }
+            h2, .section-title { font-size: clamp(1.4rem, 5vw, 2rem); }
+            h3, .project-title { font-size: clamp(1.1rem, 4vw, 1.5rem); }
+            p, li, .project-desc { font-size: clamp(0.875rem, 3vw, 1rem); line-height: 1.7; }
 
             /* Safe area */
             footer, .footer { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
@@ -883,7 +875,6 @@
     </nav>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="status-badge reveal">
                 <div class="status-dot"></div>
@@ -921,12 +912,10 @@
         </section>
 
         <div class="container">
-            <!-- Research Experience -->
             <section id="experience" class="section">
                 <span class="section-label reveal">Research Portfolio</span>
                 <h2 class="section-title reveal">Quant <span class="gradient-text">Intelligence</span> & Architecture</h2>
 
-                <!-- Project 1 -->
                 <div class="glass-card project-card reveal">
                     <div class="project-header">
                         <span class="category-tag">ML RISK SYSTEM</span>
@@ -978,7 +967,6 @@
                     </div>
                 </div>
 
-                <!-- Project 2 -->
                 <div class="glass-card project-card reveal">
                     <div class="project-header">
                         <span class="category-tag purple">OPTIONS ALPHA</span>
@@ -1017,8 +1005,7 @@
                                 </tr>
                             </thead>
                             <tbody id="performance-body">
-                                <!-- Data populated by JS for cleaner HTML -->
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
 
@@ -1027,7 +1014,6 @@
                     </div>
                 </div>
 
-                <!-- Publication -->
                 <div class="glass-card pub-card reveal">
                     <span class="section-label">Forthcoming Publication</span>
                     <h3 class="pub-title">“Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness”</h3>
@@ -1051,7 +1037,6 @@
 
             <hr class="glow-hr">
 
-            <!-- Education -->
             <section id="education" class="section">
                 <span class="section-label reveal">Academic Foundation</span>
                 <h2 class="section-title reveal">Quantitative <span class="gradient-text">Philosophy</span></h2>
@@ -1091,7 +1076,6 @@
 
             <hr class="glow-hr">
 
-            <!-- Skills -->
             <section id="skills" class="section">
                 <span class="section-label reveal">Tech Stack</span>
                 <h2 class="section-title reveal">System <span class="gradient-text">Proficiencies</span></h2>
@@ -1138,14 +1122,12 @@
 
                 <div class="marquee-container reveal">
                     <div class="marquee-content" id="marquee">
-                        <!-- Repeated for infinite effect -->
                         <span class="marquee-item">ANALYTICAL MINDSET</span>
                         <span class="marquee-item">DATA INTEGRITY</span>
                         <span class="marquee-item">FAST LEARNER</span>
                         <span class="marquee-item">CROSS-FUNCTIONAL TEAMS</span>
                         <span class="marquee-item">DETAIL ORIENTED</span>
                         <span class="marquee-item">INDEPENDENT RESEARCH</span>
-                        <!-- Second half -->
                         <span class="marquee-item">ANALYTICAL MINDSET</span>
                         <span class="marquee-item">DATA INTEGRITY</span>
                         <span class="marquee-item">FAST LEARNER</span>
@@ -1158,7 +1140,6 @@
 
             <hr class="glow-hr">
 
-            <!-- Leadership -->
             <section id="leadership" class="section">
                 <span class="section-label reveal">Leadership</span>
                 <h2 class="section-title reveal">Discipline & <span class="gradient-text">Command</span></h2>
@@ -1411,10 +1392,11 @@
                 });
             });
 
-            // Cursor glow
+            // Check if device is touch capable
             const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
+            
+            // Cursor glow - Only bind on non-touch devices
             const glow = document.getElementById('cursor-glow');
-
             if (glow && !isTouchDevice()) {
                 window.addEventListener('mousemove', (e) => {
                     glow.style.left = e.clientX + 'px';
@@ -1482,7 +1464,15 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    scales: { r: { grid: { color: 'rgba(255,255,255,0.1)' }, angleLines: { color: 'rgba(255,255,255,0.1)' }, ticks: { display: false }, min: 0, max: 1 } },
+                    scales: { 
+                        r: { 
+                            grid: { color: 'rgba(255,255,255,0.1)' }, 
+                            angleLines: { color: 'rgba(255,255,255,0.1)' }, 
+                            ticks: { display: false }, 
+                            min: 0, 
+                            max: 1 
+                        } 
+                    },
                     plugins: { legend: { display: false } }
                 }
             });
