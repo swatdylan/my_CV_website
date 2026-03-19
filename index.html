@@ -7,6 +7,7 @@
     <title>Dylan Ang Kai Hao | Quant & ML Systems</title>
     <meta name="description" content="Portfolio of Dylan Ang Kai Hao, specializing in Quantitative Research, Machine Learning, and Options Strategy.">
     
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&family=Syne:wght@800&display=swap" rel="stylesheet">
@@ -287,6 +288,7 @@
             width: 8px;
             height: 8px;
             background: var(--accent-green);
+            border-radius: 50%;
             border-radius: 50%;
             box-shadow: 0 0 10px var(--accent-green);
             animation: pulse-green 2s infinite;
@@ -775,6 +777,30 @@
         .menu-toggle.open span:nth-child(2) { opacity: 0; }
         .menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
 
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: var(--bg-primary);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+                transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 1000;
+            }
+            .nav-links.open {
+                right: 0;
+            }
+            .nav-links a {
+                font-size: 1.5rem;
+            }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             * {
                 animation: none !important;
@@ -857,6 +883,7 @@
     </nav>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="status-badge reveal">
                 <div class="status-dot"></div>
@@ -894,10 +921,12 @@
         </section>
 
         <div class="container">
+            <!-- Research Experience -->
             <section id="experience" class="section">
                 <span class="section-label reveal">Research Portfolio</span>
                 <h2 class="section-title reveal">Quant <span class="gradient-text">Intelligence</span> & Architecture</h2>
 
+                <!-- Project 1 -->
                 <div class="glass-card project-card reveal">
                     <div class="project-header">
                         <span class="category-tag">ML RISK SYSTEM</span>
@@ -949,6 +978,7 @@
                     </div>
                 </div>
 
+                <!-- Project 2 -->
                 <div class="glass-card project-card reveal">
                     <div class="project-header">
                         <span class="category-tag purple">OPTIONS ALPHA</span>
@@ -987,7 +1017,8 @@
                                 </tr>
                             </thead>
                             <tbody id="performance-body">
-                                </tbody>
+                                <!-- Data populated by JS for cleaner HTML -->
+                            </tbody>
                         </table>
                     </div>
 
@@ -996,6 +1027,7 @@
                     </div>
                 </div>
 
+                <!-- Publication -->
                 <div class="glass-card pub-card reveal">
                     <span class="section-label">Forthcoming Publication</span>
                     <h3 class="pub-title">“Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness”</h3>
@@ -1019,6 +1051,7 @@
 
             <hr class="glow-hr">
 
+            <!-- Education -->
             <section id="education" class="section">
                 <span class="section-label reveal">Academic Foundation</span>
                 <h2 class="section-title reveal">Quantitative <span class="gradient-text">Philosophy</span></h2>
@@ -1058,6 +1091,7 @@
 
             <hr class="glow-hr">
 
+            <!-- Skills -->
             <section id="skills" class="section">
                 <span class="section-label reveal">Tech Stack</span>
                 <h2 class="section-title reveal">System <span class="gradient-text">Proficiencies</span></h2>
@@ -1104,12 +1138,14 @@
 
                 <div class="marquee-container reveal">
                     <div class="marquee-content" id="marquee">
+                        <!-- Repeated for infinite effect -->
                         <span class="marquee-item">ANALYTICAL MINDSET</span>
                         <span class="marquee-item">DATA INTEGRITY</span>
                         <span class="marquee-item">FAST LEARNER</span>
                         <span class="marquee-item">CROSS-FUNCTIONAL TEAMS</span>
                         <span class="marquee-item">DETAIL ORIENTED</span>
                         <span class="marquee-item">INDEPENDENT RESEARCH</span>
+                        <!-- Second half -->
                         <span class="marquee-item">ANALYTICAL MINDSET</span>
                         <span class="marquee-item">DATA INTEGRITY</span>
                         <span class="marquee-item">FAST LEARNER</span>
@@ -1122,6 +1158,7 @@
 
             <hr class="glow-hr">
 
+            <!-- Leadership -->
             <section id="leadership" class="section">
                 <span class="section-label reveal">Leadership</span>
                 <h2 class="section-title reveal">Discipline & <span class="gradient-text">Command</span></h2>
@@ -1316,6 +1353,7 @@
                 if (progress < 1) {
                     window.requestAnimationFrame(step);
                 } else {
+                   // Ensure final value is exact
                    if (obj.getAttribute('data-target') === '39.57') obj.innerText = '+39.57%';
                    else if (obj.getAttribute('data-target') === '72') obj.innerText = '72%';
                    else if (obj.getAttribute('data-target') === '0.7817') obj.innerText = '0.7817';
@@ -1373,7 +1411,7 @@
                 });
             });
 
-            // Cursor glow disabled on touch devices
+            // Cursor glow
             const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
             const glow = document.getElementById('cursor-glow');
 
