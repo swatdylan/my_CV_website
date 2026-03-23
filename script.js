@@ -18,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progressBar) progressBar.style.width = scrolled + "%";
     });
     
-    // Reveal Animations
+    // Reveal Animations - FIXED to work for all sections
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
                 
-                // This change ensures ALL counters inside any revealed card animate
+                // This searches for any counters inside the element being revealed
                 const counters = entry.target.querySelectorAll('.hero-stat-value');
                 counters.forEach(c => {
                     const targetStr = c.getAttribute('data-target');
