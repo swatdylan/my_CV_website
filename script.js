@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.requestAnimationFrame(step);
             } else {
                 const target = obj.getAttribute('data-target');
-                if (target === '39.57') obj.innerText = '+40.27%';
+                if (target === '40.27') obj.innerText = '+40.27%';
                 else if (target === '72') obj.innerText = '72%';
                 else if (target === '0.7817') obj.innerText = '0.7817';
             }
@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: ["Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26"],
                     datasets: [{
                         label: 'Options Alpha Strategy',
-                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 39.57],
+                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 42.27],
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         borderWidth: 3,
