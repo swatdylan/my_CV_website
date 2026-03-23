@@ -145,11 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (progress < 1) {
                 window.requestAnimationFrame(step);
+            // ... existing animation code ...
             } else {
-                // Final Snap to Target
                 const target = obj.getAttribute('data-target');
                 if (target === '40.27') obj.innerText = '+40.27%';
-                else if (target === '6.13') obj.innerText = '6.13';
+                else if (target === '100') obj.innerText = '100%';
+                else if (target === '6.13') obj.innerText = '6.13'; // Ensure this line exists
                 else if (target === '72') obj.innerText = '72%';
                 else if (target === '0.7817') obj.innerText = '0.7817';
             }
