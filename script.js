@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.requestAnimationFrame(step);
             } else {
                 const target = obj.getAttribute('data-target');
-                if (target === '39.57') obj.innerText = '+39.57%';
+                if (target === '39.57') obj.innerText = '+40.27%';
                 else if (target === '72') obj.innerText = '72%';
                 else if (target === '0.7817') obj.innerText = '0.7817';
             }
