@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { m: "Dec '25", p: "+4.31%", c: "+34.01%" },
                 { m: "Jan '26", p: "+1.62%", c: "+35.63%" },
                 { m: "Feb '26", p: "+3.38%", c: "+39.01%" },
-                { m: "Mar '26", p: "+0.56%", c: "+39.57%" }
+                { m: "Mar '26", p: "+1.26%", c: "+40.27%" }
             ];
             tableBody.innerHTML = '';
             perfData.forEach(row => {
