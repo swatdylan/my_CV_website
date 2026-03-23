@@ -23,16 +23,17 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
-                if (entry.target.classList.contains('hero-stats')) {
-                    const counters = entry.target.querySelectorAll('.hero-stat-value');
-                    counters.forEach(c => {
-                        const targetStr = c.getAttribute('data-target');
-                        if (targetStr) {
-                            const target = parseFloat(targetStr);
-                            animateValue(c, 0, target, 2000);
-                        }
-                    });
-                }
+                
+                // This change ensures ALL counters inside any revealed card animate
+                const counters = entry.target.querySelectorAll('.hero-stat-value');
+                counters.forEach(c => {
+                    const targetStr = c.getAttribute('data-target');
+                    if (targetStr) {
+                        const target = parseFloat(targetStr);
+                        animateValue(c, 0, target, 2000);
+                    }
+                });
+                
                 revealObserver.unobserve(entry.target);
             }
         });
