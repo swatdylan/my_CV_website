@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (obj.innerText.includes('%')) {
                 obj.innerText = '+' + val.toFixed(2) + '%';
             } else if (obj.getAttribute('data-target') === '6.13') {
-                obj.innerText = val.toFixed(2); // Displays as 6.13
+                obj.innerText = val.toFixed(2); 
             } else if (obj.getAttribute('data-target').includes('.')) {
                 obj.innerText = val.toFixed(4);
             } else {
@@ -145,12 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (progress < 1) {
                 window.requestAnimationFrame(step);
-            // ... existing animation code ...
             } else {
                 const target = obj.getAttribute('data-target');
-                if (target === '40.27') obj.innerText = '+40.27%';
+                if (target === '49.35') obj.innerText = '+49.35%'; // Updated target
                 else if (target === '100') obj.innerText = '100%';
-                else if (target === '6.13') obj.innerText = '6.13'; // Ensure this line exists
+                else if (target === '6.13') obj.innerText = '6.13'; 
                 else if (target === '72') obj.innerText = '72%';
                 else if (target === '0.7817') obj.innerText = '0.7817';
             }
@@ -278,10 +277,10 @@ document.addEventListener('DOMContentLoaded', () => {
             new Chart(returnCtx.getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: ["Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26"],
+                    labels: ["Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26"],
                     datasets: [{
                         label: 'Options Alpha Strategy',
-                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 42.27],
+                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 40.95, 42.05, 43.35, 49.35],
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         borderWidth: 3,
@@ -289,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         fill: true
                     }, {
                         label: 'S&P 500 (Benchmark)',
-                        data: [8.22, 12.30, 18.14, 20.44, 23.73, 26.58, 26.68, 28.78, 30.21, 32.03, 30.84, 30.88],
+                        data: [8.22, 12.30, 18.14, 20.44, 23.73, 26.58, 26.68, 28.78, 30.21, 32.03, 30.84, 30.88, 31.50, 32.20, 33.00],
                         borderColor: 'rgba(255, 255, 255, 0.25)',
                         borderDash: [5, 5],
                         borderWidth: 2,
@@ -324,7 +323,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 { m: "Dec '25", p: "+3.32%", c: "+34.01%" },
                 { m: "Jan '26", p: "+1.20%", c: "+35.63%" },
                 { m: "Feb '26", p: "+2.49%", c: "+39.01%" },
-                { m: "Mar '26", p: "+1.07%", c: "+40.49%" }
+                { m: "Mar '26", p: "+1.40%", c: "+40.95%" },
+                { m: "Apr '26", p: "+0.78%", c: "+42.05%" },
+                { m: "May '26", p: "+0.91%", c: "+43.35%" },
+                { m: "Jun '26", p: "+4.19%", c: "+49.35%" }
             ];
             tableBody.innerHTML = '';
             perfData.forEach(row => {
