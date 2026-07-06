@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Formatting Logic
             if (obj.innerText.includes('%')) {
                 obj.innerText = '+' + val.toFixed(2) + '%';
-            } else if (obj.getAttribute('data-target') === '6.13') {
+            } else if (obj.getAttribute('data-target') === '5.23') {
                 obj.innerText = val.toFixed(2); 
             } else if (obj.getAttribute('data-target').includes('.')) {
                 obj.innerText = val.toFixed(4);
@@ -147,9 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.requestAnimationFrame(step);
             } else {
                 const target = obj.getAttribute('data-target');
-                if (target === '49.35') obj.innerText = '+49.35%'; // Updated target
+                if (target === '50.70') obj.innerText = '+50.70%'; // Updated target
                 else if (target === '100') obj.innerText = '100%';
-                else if (target === '6.13') obj.innerText = '6.13'; 
+                else if (target === '5.23') obj.innerText = '5.23'; 
                 else if (target === '72') obj.innerText = '72%';
                 else if (target === '0.7817') obj.innerText = '0.7817';
             }
@@ -280,7 +280,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: ["Apr '25", "May '25", "Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26", "Jun '26"],
                     datasets: [{
                         label: 'Options Alpha Strategy',
-                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 40.95, 42.05, 43.35, 49.35],
+                        data: [1.86, 5.77, 9.37, 11.36, 14.59, 18.56, 24.15, 29.70, 34.01, 35.63, 39.01, 40.95, 42.05, 43.35, 50.70],
                         borderColor: '#00ff88',
                         backgroundColor: 'rgba(0, 255, 136, 0.1)',
                         borderWidth: 3,
@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { m: "Mar '26", p: "+1.40%", c: "+40.95%" },
                 { m: "Apr '26", p: "+0.78%", c: "+42.05%" },
                 { m: "May '26", p: "+0.91%", c: "+43.35%" },
-                { m: "Jun '26", p: "+4.19%", c: "+49.35%" }
+                { m: "Jun '26", p: "+7.35%", c: "+50.70%" }
             ];
             tableBody.innerHTML = '';
             perfData.forEach(row => {
