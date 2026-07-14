@@ -25,10 +25,10 @@
     <span>DA</span>
   </a>
   <div class="nav-links">
-    <a href="#lab" data-num="01">Strategy Lab</a>
-    <a href="#curve" data-num="02">Performance Curve</a>
-    <a href="#track" data-num="03">Track Record</a>
-    <a href="#method" data-num="04">Methodology</a>
+    <a href="#research" data-num="01">Research</a>
+    <a href="#education" data-num="02">Education</a>
+    <a href="#skills" data-num="03">Skills</a>
+    <a href="#leadership" data-num="04">Leadership</a>
   </div>
   <a href="mailto:dylan.ang@u.nus.edu" class="btn-secondary" style="padding: 8px 18px; font-size: 13px;">
     Contact
@@ -45,10 +45,11 @@
       <span class="live-dot"></span>
       AVAILABLE FOR OPPORTUNITIES · 2026
     </div>
-    <h1>Dylan Ang<br><em>builds systems</em><br>that bet on math.</h1>
-    <p>Quantitative researcher constructing delta-neutral options architectures, ML-driven market regime detection, and zero-beta yield systems. NUS Philosophy graduate turned market engineer — 1st Class Honours, 4.53/5.0 GPA, and a Triathlon national team member who runs 15+ hours a week.</p>
+    <h1>DYLAN ANG<br><em>KAI HAO</em></h1>
+    <div class="hero-subtitle mono" id="typewriter"></div>
+    <p>Quantitative researcher constructing delta-neutral options architectures, ML-driven market regime detection, and zero-beta yield systems. NUS Philosophy graduate turned market engineer — 1st Class Honours, 4.53/5.0 GPA.</p>
     <div class="cta-group">
-      <a href="#track" class="btn-primary">
+      <a href="#research" class="btn-primary">
         View research
         <i class="fas fa-arrow-right" style="font-size: 12px;"></i>
       </a>
@@ -65,19 +66,19 @@
         <div class="hero-stat-foot">weekly resolution · 52 active weeks</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-label">Annual Sharpe · rf = 3.7%</div>
-        <div class="hero-stat-value mono"><span class="counter" data-target="7.03" data-decimals="2">0.00</span></div>
-        <div class="hero-stat-foot">market-neutral options alpha</div>
+        <div class="hero-stat-label">Model Accuracy</div>
+        <div class="hero-stat-value mono"><span class="counter" data-target="72" data-suffix="%">0%</span></div>
+        <div class="hero-stat-foot">TQQQ regime classification</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-label">ROC AUC · OOS Validation</div>
+        <div class="hero-stat-label">ROC AUC Score</div>
         <div class="hero-stat-value mono"><span class="counter" data-target="0.7817" data-decimals="4">0.0000</span></div>
-        <div class="hero-stat-foot">TQQQ regime detection</div>
+        <div class="hero-stat-foot">walk-forward OOS</div>
       </div>
     </div>
   </div>
   <div class="hero-shape-wrap">
-    <div class="shape-meta tl">n = 12 vertices<br>ω = 0.7 rad/s</div>
+    <div class="shape-meta tl">Δ = 0 · weekly<br>θ = 0.012 / day</div>
     <div class="shape-meta br">r(t) = R + Σ sin(ωt + φᵢ)<br>continuous morph</div>
 
     <svg viewBox="0 0 500 500" id="heroShape">
@@ -126,359 +127,302 @@
 <!-- Marquee: Skills -->
 <div class="marquee-strip">
   <div class="marquee-track">
-    <span>Python</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span><span>XGBoost</span><span>Statistical Modeling</span><span>Feature Engineering</span><span>Walk-Forward Validation</span><span>Options Pricing</span><span>Delta-Neutral Hedging</span><span>Volatility Surface Modeling</span><span>Excel VBA</span><span>Python</span><span>Pandas</span><span>NumPy</span><span>Scikit-learn</span><span>XGBoost</span><span>Statistical Modeling</span><span>Feature Engineering</span><span>Walk-Forward Validation</span><span>Options Pricing</span><span>Delta-Neutral Hedging</span><span>Volatility Surface Modeling</span><span>Excel VBA</span>
+    <span>Quantitative Research</span><span>Machine Learning</span><span>Options Strategy</span><span>Risk Systems</span><span>Market Regime Detection</span><span>Walk-Forward Validation</span><span>Feature Engineering</span><span>Statistical Modeling</span><span>Delta-Neutral Hedging</span><span>Quantitative Research</span><span>Machine Learning</span><span>Options Strategy</span><span>Risk Systems</span><span>Market Regime Detection</span><span>Walk-Forward Validation</span><span>Feature Engineering</span><span>Statistical Modeling</span><span>Delta-Neutral Hedging</span>
   </div>
 </div>
 
-<!-- 01 — STRATEGY LAB -->
-<section id="lab">
+<!-- RESEARCH / EXPERIENCE -->
+<section id="research" class="bg-grid-fine">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">01 — STRATEGY LAB</div>
-      <h2 class="section-title">Drag the <em>vertices</em>.<br>Read the geometry of risk.</h2>
+      <div class="section-num">01 — RESEARCH PORTFOLIO</div>
+      <h2 class="section-title">Quant <em>Intelligence</em><br>&amp; Architecture.</h2>
     </div>
     <div></div>
-    <p class="section-kicker">Every option strategy lives on a triangle — delta, gamma, vega. Pull a vertex and watch the greeks, breakevens, and payoff profile recompute in real time. The triangle is the strategy.</p>
+    <p class="section-kicker">Three active research streams — an ML risk system for detecting volatility events in TQQQ, a market-neutral options architecture compounding weekly, and a forthcoming philosophy publication. All built with rigor.</p>
   </div>
 
-  <div class="playground-grid reveal-on-scroll">
-    <div class="canvas-card">
-      <div class="card-label">
-        <span><span class="live-dot"></span>INTERACTIVE · GREEKS LIVE</span>
-        <span id="dragHint">click + drag any vertex</span>
+  <div class="container-inner">
+
+    <!-- TQQQ Regime Detection -->
+    <article class="project-card reveal-on-scroll">
+      <div class="project-header">
+        <span class="category-tag">ML RISK SYSTEM</span>
+        <span class="project-date mono">OCT 2025 – PRESENT</span>
       </div>
-      <svg class="triangle-svg" id="triangleSVG" viewBox="0 0 600 450">
-        <defs>
-          <pattern id="triGrid" width="30" height="30" patternUnits="userSpaceOnUse">
-            <path d="M 30 0 L 0 0 0 30" fill="none" stroke="rgba(240,235,225,0.04)" stroke-width="1"/>
-          </pattern>
-          <linearGradient id="triFill" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#d4ff3a" stop-opacity="0.18"/>
-            <stop offset="100%" stop-color="#d4ff3a" stop-opacity="0.04"/>
-          </linearGradient>
-        </defs>
-        <rect width="600" height="450" fill="url(#triGrid)"/>
+      <h3 class="project-title">TQQQ Market Regime Analysis &amp; Risk Mitigation System</h3>
+      <p class="project-desc">
+        A robust machine learning architecture designed for high-precision detection of significant
+        market volatility events within the TQQQ equity structure. Utilizing ATR-normalized metrics and
+        macro-volatility indices, the system generates high-integrity signals to inform tactical risk
+        management and capital allocation strategies.
+      </p>
+      <div class="tag-chips">
+        <span class="tag-chip">Walk-Forward OOS</span>
+        <span class="tag-chip">XGBoost Classification</span>
+        <span class="tag-chip">Expanding Window</span>
+        <span class="tag-chip">Minimal Complexity</span>
+      </div>
 
-        <path id="trianglePath" fill="url(#triFill)" stroke="#d4ff3a" stroke-width="2" stroke-linejoin="round"/>
+      <div class="metrics-label">Performance Validation (516 Weeks OOS)</div>
+      <div class="metrics-grid">
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-cyan">0.7817</span>
+          <span class="mini-stat-label">ROC AUC</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">72%</span>
+          <span class="mini-stat-label">Accuracy</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono">0.1857</span>
+          <span class="mini-stat-label">Brier Score</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">68%</span>
+          <span class="mini-stat-label">Breach Detection</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">75%</span>
+          <span class="mini-stat-label">Hold Reliability</span>
+        </div>
+      </div>
 
-        <g id="sideLabels"></g>
-        <g id="angleArcs"></g>
-        <circle id="centroid" r="4" fill="#ff5e62"/>
-        <text id="centroidLabel" font-family="JetBrains Mono" font-size="10" fill="#ff5e62" text-anchor="middle">Δ</text>
+      <div class="charts-row">
+        <div class="chart-wrapper roc-chart-wrapper">
+          <canvas id="rocCurveChart"></canvas>
+        </div>
+        <div class="chart-wrapper pentagon-chart-wrapper">
+          <canvas id="tqqqPerformanceChart"></canvas>
+        </div>
+        <p class="chart-foot mono">* Brier Score axis shows (1 − score); lower raw score = better performance</p>
+      </div>
+    </article>
 
-        <g id="vertices"></g>
-      </svg>
+    <!-- Options Alpha Strategy -->
+    <article class="project-card reveal-on-scroll">
+      <div class="project-header">
+        <span class="category-tag purple">OPTIONS ALPHA</span>
+        <span class="project-date mono">APR 2025 – PRESENT</span>
+      </div>
+      <h3 class="project-title">Market-Neutral Options Alpha Strategy</h3>
+      <p class="project-desc">
+        A sophisticated market-neutral options architecture engineered for consistent yield generation
+        regardless of broad market direction. By maintaining a strict delta-neutral profile and
+        leveraging volatility harvesting techniques, the strategy provides a high-integrity, zero-beta
+        return stream that is decoupled from equity market volatility.
+      </p>
+      <div class="tag-chips">
+        <span class="tag-chip">Delta-Neutral</span>
+        <span class="tag-chip">Vega/Gamma Scalping</span>
+        <span class="tag-chip">Market-Neutral Alpha</span>
+        <span class="tag-chip">Systematic Risk Hedging</span>
+      </div>
+
+      <div class="metrics-label">Strategy Yield Analysis</div>
+      <div class="metrics-grid">
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">+51.32%</span>
+          <span class="mini-stat-label">Since Inception (2025 Apr)</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">+40.93%</span>
+          <span class="mini-stat-label">Avg Annual Return</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">100%</span>
+          <span class="mini-stat-label">Weekly Success Rate</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">7.03</span>
+          <span class="mini-stat-label">Annual Sharpe (rf=3.7%)</span>
+        </div>
+        <div class="mini-stat-card">
+          <span class="mini-stat-value mono accent-teal">64</span>
+          <span class="mini-stat-label">Calendar Weeks</span>
+        </div>
+      </div>
+
+      <div class="terminal-container">
+        <div class="terminal-header">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title mono">weekly_ledger.txt</span>
+        </div>
+        <table class="terminal-table mono">
+          <thead>
+            <tr>
+              <th>WEEK</th>
+              <th>PERFORMANCE</th>
+              <th>CUMULATIVE</th>
+            </tr>
+          </thead>
+          <tbody id="performance-body"></tbody>
+        </table>
+      </div>
+
+      <div class="chart-wrapper chart-wrapper-tall">
+        <canvas id="optionsReturnChart"></canvas>
+      </div>
+    </article>
+
+    <!-- Publication + NS side-by-side -->
+    <div class="dual-grid">
+      <article class="project-card pub-card reveal-on-scroll">
+        <div class="project-header">
+          <span class="category-tag amber">FORTHCOMING</span>
+          <span class="project-date mono">EXPECTED 2026</span>
+        </div>
+        <h3 class="project-title">"Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness"</h3>
+        <p class="text-secondary">The Red Stone Journal: An Undergraduate Journal of NUS Philosophy, Vol. 5(1)</p>
+        <div class="forthcoming-badge">
+          <div class="orange-dot"></div>
+          PUBLICATION PENDING
+        </div>
+      </article>
+
+      <article class="project-card reveal-on-scroll">
+        <div class="project-header">
+          <span class="category-tag teal">DATA ANALYTICS</span>
+          <span class="project-date mono">JAN 2020 – AUG 2021</span>
+        </div>
+        <h3 class="project-title">Data &amp; Administrative Analytics</h3>
+        <p class="company">Singapore Armed Forces (National Service)</p>
+        <p class="project-desc">Managed and validated large-scale administrative datasets with 100% accuracy requirements for senior leadership reporting. Built Excel VBA automation pipelines replacing manual workflows.</p>
+        <div class="tag-chips">
+          <span class="tag-chip">100% Accuracy SLA</span>
+          <span class="tag-chip">Excel VBA</span>
+          <span class="tag-chip">Process Automation</span>
+        </div>
+      </article>
     </div>
 
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal-on-scroll">
     <div>
-      <div class="card-label" style="margin-bottom: 16px;">
-        <span><span class="live-dot"></span>STRATEGY READOUTS</span>
-        <span>live greeks</span>
-      </div>
-      <div class="readout-grid">
-        <div class="readout">
-          <div class="readout-label">delta Δ</div>
-          <div class="readout-value"><span id="readDelta">—</span><span class="readout-unit">net</span></div>
+      <div class="section-num">02 — ACADEMIC FOUNDATION</div>
+      <h2 class="section-title">Quantitative <em>Philosophy</em>.</h2>
+    </div>
+    <div></div>
+    <p class="section-kicker">A philosophy degree turned out to be the best training for thinking clearly under ambiguity. Formal logic, computational reasoning, and the discipline of asking whether something is necessary.</p>
+  </div>
+
+  <div class="edu-grid reveal-on-scroll">
+    <div class="glass-card">
+      <h3 class="role">Bachelor of Arts (1st Class Hons)</h3>
+      <p class="text-primary" style="margin: 0.5rem 0;">National University of Singapore</p>
+      <p class="text-secondary">Major in Philosophy | Minor in Language Science</p>
+
+      <div class="gpa-container">
+        <div class="gpa-header">
+          <span class="mono">GPA 4.53 / 5.0</span>
+          <span class="mono">90.6%</span>
         </div>
-        <div class="readout">
-          <div class="readout-label">gamma Γ</div>
-          <div class="readout-value"><span id="readGamma">—</span><span class="readout-unit">per $1</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">vega ν</div>
-          <div class="readout-value"><span id="readVega">—</span><span class="readout-unit">per vol-pt</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">theta Θ</div>
-          <div class="readout-value"><span id="readTheta">—</span><span class="readout-unit">per day</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">breakeven</div>
-          <div class="readout-value"><span id="readBreakeven">—</span><span class="readout-unit">px</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">max profit</div>
-          <div class="readout-value" style="color: var(--accent-3);"><span id="readMaxProfit">—</span><span class="readout-unit">$</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">max loss</div>
-          <div class="readout-value" style="color: var(--accent-2);"><span id="readMaxLoss">—</span><span class="readout-unit">$</span></div>
-        </div>
-        <div class="readout">
-          <div class="readout-label">payoff ratio</div>
-          <div class="readout-value"><span id="readRatio">—</span><span class="readout-unit">:1</span></div>
+        <div class="progress-track">
+          <div class="progress-fill" style="width: 90.6%;"></div>
         </div>
       </div>
 
-      <div class="classification">
-        <div class="classification-label">strategy classification</div>
-        <div class="classification-value" id="classification">— waiting for input —</div>
+      <p class="mono date-line">AUG 2021 – DEC 2025</p>
+    </div>
+
+    <div class="glass-card">
+      <div class="metrics-label">Relevant Coursework</div>
+      <div class="tag-chips">
+        <span class="tag-chip">Quantitative Reasoning</span>
+        <span class="tag-chip">First-order Logic</span>
+        <span class="tag-chip">Computational Reasoning</span>
+        <span class="tag-chip">Python Programming</span>
+        <span class="tag-chip">VBA Automation</span>
+        <span class="tag-chip">Inquiry into Beliefs</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 02 — PERFORMANCE CURVE -->
-<section id="curve" class="bg-grid-fine">
+<!-- SKILLS -->
+<section id="skills" class="bg-grid-fine">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">02 — PERFORMANCE CURVE</div>
-      <h2 class="section-title">52 weekly snapshots.<br><em>One compounding curve.</em></h2>
+      <div class="section-num">03 — TECH STACK</div>
+      <h2 class="section-title">System <em>Proficiencies</em>.</h2>
     </div>
     <div></div>
-    <p class="section-kicker">The Options Alpha strategy, plotted week-by-week from inception. Drag the sliders to see how starting capital and leverage reshape the dollar curve — the percentage path stays identical, the dollar magnitude scales.</p>
+    <p class="section-kicker">The languages, libraries, and tools I reach for — Python for modeling, Excel for legacy data, and a heavy reliance on statistical rigor before any decision moves from notebook to live capital.</p>
   </div>
 
-  <div class="plots-grid reveal-on-scroll">
-    <div class="canvas-card">
-      <div class="card-label">
-        <span><span class="live-dot"></span>EQUITY · USD · COMPOUNDING</span>
-        <span id="plotRange">Apr 21 → Jul 6 · 52 weeks</span>
+  <div class="skills-grid reveal-on-scroll">
+    <div class="skill-category reveal-on-scroll">
+      <div class="skill-cat-header">
+        <div class="skill-icon-wrap">💻</div>
+        <h3>Programming</h3>
       </div>
-      <svg class="plot-svg" id="plotSVG" viewBox="0 0 600 450">
-        <defs>
-          <linearGradient id="curveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stop-color="#ff5e62"/>
-            <stop offset="50%" stop-color="#ffb627"/>
-            <stop offset="100%" stop-color="#d4ff3a"/>
-          </linearGradient>
-          <linearGradient id="curveFillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#d4ff3a" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#d4ff3a" stop-opacity="0"/>
-          </linearGradient>
-          <filter id="curveGlow">
-            <feGaussianBlur stdDeviation="2.5" result="blur"/>
-            <feMerge>
-              <feMergeNode in="blur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-
-        <g id="plotGrid"></g>
-        <g id="plotAxes"></g>
-
-        <path id="curveFill" fill="url(#curveFillGrad)"/>
-        <path id="curvePath" fill="none" stroke="url(#curveGrad)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" filter="url(#curveGlow)"/>
-
-        <line id="benchLine" stroke="rgba(240,235,225,0.35)" stroke-width="1.5" stroke-dasharray="5 5"/>
-        <text id="benchLabel" font-family="JetBrains Mono" font-size="10" fill="rgba(240,235,225,0.6)"></text>
-
-        <g id="plotPoints"></g>
-        <g id="hoverLine" style="opacity: 0;">
-          <line id="hoverVert" stroke="rgba(212,255,58,0.5)" stroke-width="1" stroke-dasharray="2 4"/>
-          <circle id="hoverDot" r="6" fill="#d4ff3a" stroke="#0d0e14" stroke-width="2"/>
-          <rect id="hoverBox" rx="6" fill="var(--bg-card)" stroke="rgba(212,255,58,0.4)"/>
-          <text id="hoverText" font-family="JetBrains Mono" font-size="11" fill="#f0ebe1"></text>
-        </g>
-      </svg>
-    </div>
-
-    <div>
-      <div class="card-label" style="margin-bottom: 16px;">
-        <span><span class="live-dot"></span>WHAT-IF PARAMETERS</span>
-        <span>scales dollar magnitude</span>
-      </div>
-
-      <div class="equation-display" id="equationDisplay">
-        <span class="num" id="eqStart">$35,000</span>
-        <span class="op">×</span>
-        <span class="num" id="eqLeverage">1.00x</span>
-        <span class="op">=</span>
-        <span class="num" id="eqEnd">$52,961</span>
-      </div>
-
-      <div class="slider-row">
-        <div class="slider-header">
-          <span class="slider-label">starting capital <span class="var">P₀</span></span>
-          <span class="slider-value mono" id="valStart">$35,000</span>
-        </div>
-        <input type="range" id="sliderStart" min="10000" max="100000" step="1000" value="35000">
-      </div>
-      <div class="slider-row">
-        <div class="slider-header">
-          <span class="slider-label">leverage multiplier <span class="var">L</span></span>
-          <span class="slider-value mono" id="valLeverage">1.00x</span>
-        </div>
-        <input type="range" id="sliderLeverage" min="0.5" max="2.5" step="0.05" value="1">
-      </div>
-      <div class="slider-row">
-        <div class="slider-header">
-          <span class="slider-label">risk-free rate <span class="var">r_f</span></span>
-          <span class="slider-value mono" id="valRf">3.70%</span>
-        </div>
-        <input type="range" id="sliderRf" min="0" max="8" step="0.05" value="3.7">
-      </div>
-
-      <div class="feature-list">
-        <div class="feature-item"><span class="label">final balance</span><span class="val mono" id="featEnd">$52,961</span></div>
-        <div class="feature-item"><span class="label">cumulative return</span><span class="val mono" id="featCum">+51.32%</span></div>
-        <div class="feature-item"><span class="label">annualized (CAGR)</span><span class="val mono" id="featCagr">+40.93%</span></div>
-        <div class="feature-item"><span class="label">max drawdown</span><span class="val mono" id="featDD">0.00%</span></div>
-        <div class="feature-item"><span class="label">active weeks</span><span class="val mono" id="featWeeks">52 / 64</span></div>
-        <div class="feature-item"><span class="label">win rate (active)</span><span class="val mono" id="featWin">100.0%</span></div>
+      <div class="skill-pills">
+        <span class="skill-pill mono">Python</span>
+        <span class="skill-pill mono">Pandas</span>
+        <span class="skill-pill mono">NumPy</span>
+        <span class="skill-pill mono">Scikit-learn</span>
+        <span class="skill-pill mono">Excel VBA</span>
       </div>
     </div>
-  </div>
-
-  <!-- Weekly log table -->
-  <div class="weekly-table-wrap reveal-on-scroll">
-    <div class="table-header">
-      <div>
-        <div class="section-num">WEEKLY LEDGER</div>
-        <h3 class="table-title">Every active <em>trading week</em>, tabulated.</h3>
+    <div class="skill-category reveal-on-scroll delay-1">
+      <div class="skill-cat-header">
+        <div class="skill-icon-wrap">📊</div>
+        <h3>Analytics</h3>
       </div>
-      <div class="table-controls">
-        <input type="text" id="tableSearch" placeholder="filter weeks..." class="table-search" />
-        <div class="table-pill-row">
-          <button class="table-pill active" data-filter="all">All</button>
-          <button class="table-pill" data-filter="top">Top 10</button>
-          <button class="table-pill" data-filter="recent">Last 12w</button>
-        </div>
+      <div class="skill-pills">
+        <span class="skill-pill mono">Statistical Modeling</span>
+        <span class="skill-pill mono">Feature Engineering</span>
+        <span class="skill-pill mono">Hypothesis Testing</span>
+        <span class="skill-pill mono">Model Validation</span>
       </div>
     </div>
-    <div class="terminal-container">
-      <table class="terminal-table mono">
-        <thead>
-          <tr>
-            <th>WEEK</th>
-            <th>PERFORMANCE</th>
-            <th>CUMULATIVE</th>
-          </tr>
-        </thead>
-        <tbody id="performance-body"></tbody>
-      </table>
+    <div class="skill-category reveal-on-scroll delay-2">
+      <div class="skill-cat-header">
+        <div class="skill-icon-wrap">🛠️</div>
+        <h3>Tools</h3>
+      </div>
+      <div class="skill-pills">
+        <span class="skill-pill mono">Excel Expert</span>
+        <span class="skill-pill mono">MS Office</span>
+        <span class="skill-pill mono">Git</span>
+        <span class="skill-pill mono">Machine Learning</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 03 — TRACK RECORD -->
-<section id="track">
+<!-- LEADERSHIP -->
+<section id="leadership">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">03 — TRACK RECORD</div>
-      <h2 class="section-title">Five projects.<br><em>Pick one to inspect.</em></h2>
+      <div class="section-num">04 — LEADERSHIP</div>
+      <h2 class="section-title">Discipline &amp; <em>Command</em>.</h2>
     </div>
     <div></div>
-    <p class="section-kicker">Each card is a body of research. Pick the headline metric you want to interrogate and the underlying detail reveals itself. Same mechanic as the quiz — different substance.</p>
+    <p class="section-kicker">Two arenas outside the screen: 15+ hours weekly of triathlon training on the national team, and a year leading the Galaxy Astronomy Club through community-scale event execution.</p>
   </div>
 
-  <div class="quiz-progress reveal-on-scroll">
-    <div class="progress-stat">
-      <span class="label">projects</span>
-      <span class="val"><span id="trackTotal">5</span></span>
-    </div>
-    <div class="progress-stat" style="text-align: center;">
-      <span class="label">opened</span>
-      <span class="val" style="color: var(--accent-3);"><span id="trackOpened">0</span></span>
-    </div>
-    <div class="progress-stat" style="text-align: right;">
-      <span class="label">active since</span>
-      <span class="val"><span class="mono">2025 Apr</span></span>
-    </div>
-  </div>
-
-  <div class="quiz-grid reveal-on-scroll" id="trackGrid"></div>
-</section>
-
-<!-- 04 — METHODOLOGY -->
-<section id="method" class="bg-grid-fine">
-  <div class="section-header reveal-on-scroll">
-    <div>
-      <div class="section-num">04 — METHODOLOGY</div>
-      <h2 class="section-title">One strategy.<br><em>Revealed step by step.</em></h2>
-    </div>
-    <div></div>
-    <p class="section-kicker">The Options Alpha system in seven moves — from signal to settlement. Walk through it at your own pace; the path matters more than the headline number.</p>
-  </div>
-
-  <div class="solutions-wrap reveal-on-scroll">
-    <div class="problem-card">
-      <div class="problem-label">CASE STUDY · OPTIONS ALPHA · APR 2025 → PRESENT</div>
-      <div class="problem-text">Build a <em style="font-style:italic">zero-beta</em>, weekly-compounding, market-neutral options architecture on TQQQ — and survive the 2025 volatility regime to land at <em style="font-style:italic">+51.32%</em> cumulative.</div>
-      <div class="problem-prompt">Seven moves. Starting capital $35,000. Sixty-four calendar weeks. Fifty-two active trading weeks. Tap "next step" to walk through the construction.</div>
-    </div>
-
-    <div class="steps-list" id="stepsList"></div>
-
-    <div class="reveal-controls">
-      <button class="reveal-btn" id="revealBtn">
-        <span id="revealBtnText">Reveal step 1</span>
-        <i class="fas fa-arrow-down" style="font-size: 12px;"></i>
-      </button>
-      <button class="reset-btn" id="resetBtn">
-        <i class="fas fa-rotate-left" style="font-size: 12px; margin-right: 6px;"></i>
-        Reset
-      </button>
-    </div>
-  </div>
-</section>
-
-<!-- Education + Leadership -->
-<section id="bio">
-  <div class="section-header reveal-on-scroll">
-    <div>
-      <div class="section-num">05 — FOUNDATIONS</div>
-      <h2 class="section-title">Academic and <em>extracurricular</em>.</h2>
-    </div>
-    <div></div>
-    <p class="section-kicker">A philosophy degree turned out to be the best training for ambiguity. A triathlon training plan turned out to be the best training for compounding.</p>
-  </div>
-
-  <div class="bio-grid reveal-on-scroll">
-    <div class="bio-card">
-      <div class="bio-tag">Education</div>
-      <h3 class="bio-title">Bachelor of Arts, 1st Class Honours</h3>
-      <p class="bio-sub">National University of Singapore</p>
-      <p class="bio-body">Major in Philosophy. Minor in Language Science. GPA 4.53 / 5.0 (90.6%). Formal logic, computational reasoning, and first-order proof systems as a substrate for thinking about evidence under uncertainty.</p>
-      <div class="bio-meta">
-        <span class="mono">AUG 2021 – DEC 2025</span>
-        <span class="mono">90.6%</span>
+  <div class="edu-grid reveal-on-scroll">
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+        <h3 class="role">National Team — Triathlon</h3>
+        <span class="project-date mono">2022 – PRES</span>
       </div>
-      <div class="bio-chips">
-        <span class="chip">Quantitative Reasoning</span>
-        <span class="chip">First-order Logic</span>
-        <span class="chip">Computational Reasoning</span>
-        <span class="chip">Inquiry into Beliefs</span>
-      </div>
+      <p class="text-secondary" style="margin-top: 1rem;">15+ hours weekly intensive training while maintaining first-class honors. Applying evidence-based training strategies — HRV-tracked recovery, race-day execution under uncertainty, and the same feedback loop I use for portfolio construction.</p>
     </div>
-
-    <div class="bio-card">
-      <div class="bio-tag purple">Leadership</div>
-      <h3 class="bio-title">National Team — Triathlon</h3>
-      <p class="bio-sub">2022 – Present</p>
-      <p class="bio-body">15+ hours weekly intensive training while maintaining first-class honors. Evidence-based periodization; HRV-tracked recovery; race-day execution under uncertainty — the same feedback loop applied to portfolio construction.</p>
-      <div class="bio-meta">
-        <span class="mono">15+ HRS / WEEK</span>
-        <span class="mono">SGP NATIONAL</span>
+    <div class="glass-card">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+        <h3 class="role">Club President</h3>
+        <span class="project-date mono">2018 – 2019</span>
       </div>
-    </div>
-
-    <div class="bio-card">
-      <div class="bio-tag amber">Forthcoming</div>
-      <h3 class="bio-title">"Synthetic Synapses and Virtual Minds"</h3>
-      <p class="bio-sub">The Red Stone Journal · NUS Philosophy · Vol. 5(1)</p>
-      <p class="bio-body">Challenging the biological necessity of consciousness. An undergraduate journal publication expected 2026. A reminder that the rigorous practice of asking whether something is necessary transfers directly to whether a market regime is necessary.</p>
-      <div class="forthcoming-badge">
-        <div class="orange-dot"></div>
-        EXPECTED 2026
-      </div>
-    </div>
-
-    <div class="bio-card">
-      <div class="bio-tag teal">Foundations</div>
-      <h3 class="bio-title">Data & Administrative Analytics</h3>
-      <p class="bio-sub">Singapore Armed Forces · National Service</p>
-      <p class="bio-body">Managed and validated large-scale administrative datasets with 100% accuracy requirements for senior leadership reporting. Built Excel VBA automation pipelines that replaced manual workflows.</p>
-      <div class="bio-meta">
-        <span class="mono">JAN 2020 – AUG 2021</span>
-        <span class="mono">VBA AUTOMATION</span>
-      </div>
-      <div class="bio-chips">
-        <span class="chip">Large-scale Data</span>
-        <span class="chip">Excel VBA</span>
-        <span class="chip">100% Accuracy SLA</span>
-      </div>
+      <h4 class="company" style="font-size: 0.9rem; margin: 0.5rem 0 0.5rem;">Galaxy Astronomy Club</h4>
+      <p class="text-secondary">Led planning and execution of large-scale community events. Managed logistics and stakeholder coordination for educational programs reaching hundreds of attendees.</p>
     </div>
   </div>
 </section>
@@ -493,23 +437,23 @@
         <span>DYLAN ANG KAI HAO</span>
       </div>
       <p class="footer-quote">
-        "The market is a device for transferring money from the impatient to the patient — but only if the patient is also rigorous."
-        <span class="author">— paraphrased, with apologies to Warren Buffett</span>
+        "Mathematics is the art of giving the same name to different things."
+        <span class="author">— Henri Poincaré</span>
       </p>
     </div>
     <div class="footer-col">
       <h4>Research</h4>
-      <a href="#lab">Strategy Lab</a>
-      <a href="#curve">Performance Curve</a>
-      <a href="#track">Track Record</a>
-      <a href="#method">Methodology</a>
+      <a href="#research">TQQQ Regime Detection</a>
+      <a href="#research">Options Alpha Strategy</a>
+      <a href="#research">Forthcoming Publication</a>
+      <a href="#hero">Back to top</a>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <a href="mailto:dylan.ang@u.nus.edu">dylan.ang@u.nus.edu</a>
       <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="#bio">Education & Leadership</a>
-      <a href="#hero">Back to top</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -518,11 +462,7 @@
   </div>
 </footer>
 
-<div class="toast" id="toast">
-  <i class="fas fa-check-circle"></i>
-  <span id="toastMsg">Done</span>
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
