@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data: {
                     labels: ["Apr 21", "Apr 28", "May 5", "May 12", "May 19", "May 26", "Jun 9", "Jun 23", "Jul 7", "Jul 14", "Jul 21", "Jul 28", "Aug 4", "Aug 11", "Aug 25", "Sep 1", "Sep 15", "Sep 22", "Oct 6", "Oct 13", "Oct 20", "Oct 27", "Nov 10", "Nov 17", "Nov 24", "Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 29", "Jan 5", "Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 20", "Apr 27", "May 4", "May 11", "May 18", "Jun 1", "Jun 22", "Jul 6", "Jul 26"],
                     datasets: [{
-                        label: 'Options Alpha Strategy',
+                        label: 'Strategy',
                         // Jul 26 point added: +$616.08 P/L on the $35,000 account size
                         // (616.08 / 35000 * 100 = 1.76%), added to the prior cumulative
                         // total of 51.32% -> 53.08%. Simple (non-compounded) cumulative sum,
