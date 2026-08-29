@@ -236,14 +236,16 @@ document.addEventListener('DOMContentLoaded', () => {
             new Chart(returnCtx.getContext('2d'), {
                 type: 'line',
                 data: {
-                    labels: ["Apr 21", "Apr 28", "May 5", "May 12", "May 19", "May 26", "Jun 9", "Jun 23", "Jul 7", "Jul 14", "Jul 21", "Jul 28", "Aug 4", "Aug 11", "Aug 25", "Sep 1", "Sep 15", "Sep 22", "Oct 6", "Oct 13", "Oct 20", "Oct 27", "Nov 10", "Nov 17", "Nov 24", "Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 29", "Jan 5", "Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 20", "Apr 27", "May 4", "May 11", "May 18", "Jun 1", "Jun 22", "Jul 6", "Jul 13", "Jul 27", "Aug 17", "Aug 24"],
+                    labels: ["Apr 21", "Apr 28", "May 5", "May 12", "May 19", "May 26", "Jun 2", "Jun 9", "Jun 16", "Jun 23", "Jul 7", "Jul 14", "Jul 21", "Jul 28", "Aug 4", "Aug 11", "Aug 18", "Aug 25", "Sep 1", "Sep 15", "Sep 22", "Sep 29", "Oct 6", "Oct 13", "Oct 20", "Oct 27", "Nov 3", "Nov 10", "Nov 17", "Nov 24", "Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 29", "Jan 5", "Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 20", "Apr 27", "May 4", "May 11", "May 18", "Jun 1", "Jun 8", "Jun 22", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24"],
                     datasets: [{
                         label: 'Strategy',
-                        // Jul 13/27 and Aug 17/24 points: weekly $ P/L (after comm) / $35,000
-                        // account size, added cumulatively. Jul total $616.08 (+1.76%),
-                        // Aug total $233.04 (+0.67%). Simple (non-compounded) cumulative sum,
-                        // consistent with how every prior point in this series was built.
-                        data: [1.24, 2.71, 2.73, 4.49, 4.50, 5.77, 7.44, 9.37, 9.93, 11.06, 11.36, 11.51, 12.54, 13.76, 14.59, 15.47, 16.17, 18.56, 20.17, 22.42, 23.09, 24.15, 26.75, 27.66, 29.71, 29.92, 31.91, 32.51, 33.33, 34.01, 34.05, 35.03, 35.36, 35.63, 36.95, 37.38, 38.84, 39.01, 39.33, 39.74, 40.45, 40.49, 40.95, 41.02, 41.14, 42.05, 42.31, 42.35, 43.35, 49.35, 50.70, 51.32, 51.73, 52.46, 52.91, 53.13],
+                        // Apr 21 point: pre-Schwab broker activity (+1.24%), carried over
+                        // as-is. Apr 28 onward: full TQQQ book (covered-call combos +
+                        // assignment settlements + leftover-share disposals after OTM
+                        // expiries + rolls/verticals), reconstructed via FIFO share-lot
+                        // accounting from the complete Schwab trade history, including the
+                        // Nov 2025 2:1 stock split. Cumulative sum of weekly $ P/L / $35,000.
+                        data: [1.24, 2.45, 2.45, 3.47, 4.12, 6.00, 6.16, 7.36, 7.36, 9.11, 9.68, 11.20, 11.34, 11.67, 12.76, 13.76, 13.76, 13.30, 15.30, 15.48, 16.36, 17.85, 18.79, 19.45, 23.75, 24.39, 24.36, 24.38, 26.08, 26.08, 27.98, 27.32, 27.77, 27.88, 30.12, 30.21, 32.35, 32.31, 35.10, 33.45, 34.47, 37.25, 35.70, 36.84, 37.31, 38.66, 38.70, 40.69, 40.76, 40.89, 41.81, 42.08, 42.13, 43.64, 48.20, 50.11, 51.68, 52.31, 52.74, 52.50, 53.25, 53.45, 53.57, 53.43, 53.76],
                         borderColor: '#1a7f37',
                         backgroundColor: 'rgba(26, 127, 55, 0.06)',
                         borderWidth: 2,
@@ -255,10 +257,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         fill: true
                     }, {
                         label: 'S&P 500 (Benchmark)',
-                        // Jul 13/27, Aug 17/24 points use actual S&P 500 closes (7515.34,
-                        // 7413.18, 7745.06, 7677.28) scaled against the Jul 6 anchor (7537.43
-                        // close / 46.13% cumulative).
-                        data: [0.00, 7.18, 9.54, 13.30, 15.61, 14.80, 16.43, 16.81, 20.78, 21.53, 22.24, 23.88, 22.72, 23.56, 24.84, 24.38, 28.25, 29.77, 30.67, 29.01, 30.57, 33.29, 32.46, 29.36, 29.99, 32.07, 32.73, 32.15, 33.35, 33.88, 33.81, 35.27, 31.77, 34.74, 35.25, 35.02, 32.67, 32.56, 33.41, 31.75, 29.88, 27.58, 22.98, 28.18, 37.82, 39.08, 39.60, 43.71, 43.52, 47.34, 44.87, 46.13, 45.84, 44.48, 48.88, 47.99],
+                        // Actual S&P 500 daily closes (FRED SP500 series), % change from the
+                        // Apr 28 2025 anchor (no benchmark move assumed for the Apr 21 lead-in
+                        // point), aligned to each week's Monday or nearest trading day.
+                        data: [0.00, 0.00, 2.20, 5.71, 7.87, 7.10, 7.36, 8.63, 9.12, 8.98, 12.68, 13.38, 14.05, 15.57, 14.49, 15.28, 16.65, 16.47, 16.04, 19.65, 21.07, 20.48, 21.91, 20.37, 21.82, 24.35, 23.93, 23.58, 20.69, 21.28, 23.22, 23.83, 23.29, 24.41, 24.91, 24.84, 26.20, 22.94, 25.71, 26.18, 25.97, 23.78, 23.68, 24.47, 22.92, 21.17, 19.03, 14.74, 19.59, 28.58, 29.76, 30.24, 34.08, 33.90, 37.46, 33.95, 35.16, 36.33, 35.93, 34.63, 34.08, 37.47, 40.23, 40.09, 38.42],
                         borderColor: 'rgba(27, 31, 36, 0.28)',
                         borderWidth: 1.5,
                         pointRadius: 0,
@@ -314,23 +316,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const tableBody = document.getElementById('performance-body');
     if (tableBody) {
         const perfData = [
-            { m: "Apr '25", p: "+2.71%", c: "+2.71%" },
-            { m: "May '25", p: "+3.06%", c: "+5.77%" },
-            { m: "Jun '25", p: "+3.60%", c: "+9.37%" },
-            { m: "Jul '25", p: "+2.14%", c: "+11.51%" },
-            { m: "Aug '25", p: "+3.08%", c: "+14.59%" },
-            { m: "Sep '25", p: "+3.97%", c: "+18.56%" },
-            { m: "Oct '25", p: "+5.59%", c: "+24.15%" },
-            { m: "Nov '25", p: "+5.56%", c: "+29.71%" },
-            { m: "Dec '25", p: "+4.30%", c: "+34.01%" },
-            { m: "Jan '26", p: "+1.62%", c: "+35.63%" },
-            { m: "Feb '26", p: "+3.38%", c: "+39.01%" },
-            { m: "Mar '26", p: "+1.94%", c: "+40.95%" },
-            { m: "Apr '26", p: "+1.10%", c: "+42.05%" },
-            { m: "May '26", p: "+1.30%", c: "+43.35%" },
-            { m: "Jun '26", p: "+7.35%", c: "+50.70%" },
-            { m: "Jul '26", p: "+1.76%", c: "+52.46%" },
-            { m: "Aug '26", p: "+0.67%", c: "+53.13%" }
+            { m: "Apr '25", p: "+2.45%", c: "+2.45%" },
+            { m: "May '25", p: "+3.55%", c: "+6.00%" },
+            { m: "Jun '25", p: "+3.11%", c: "+9.11%" },
+            { m: "Jul '25", p: "+2.56%", c: "+11.67%" },
+            { m: "Aug '25", p: "+1.63%", c: "+13.30%" },
+            { m: "Sep '25", p: "+4.55%", c: "+17.85%" },
+            { m: "Oct '25", p: "+6.54%", c: "+24.39%" },
+            { m: "Nov '25", p: "+1.69%", c: "+26.08%" },
+            { m: "Dec '25", p: "+4.04%", c: "+30.12%" },
+            { m: "Jan '26", p: "+4.98%", c: "+35.10%" },
+            { m: "Feb '26", p: "+0.60%", c: "+35.70%" },
+            { m: "Mar '26", p: "+4.99%", c: "+40.69%" },
+            { m: "Apr '26", p: "+1.12%", c: "+41.81%" },
+            { m: "May '26", p: "+1.83%", c: "+43.64%" },
+            { m: "Jun '26", p: "+8.04%", c: "+51.68%" },
+            { m: "Jul '26", p: "+1.57%", c: "+53.25%" },
+            { m: "Aug '26", p: "+0.51%", c: "+53.76%" }
         ];
 
         tableBody.innerHTML = '';
