@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Equity Curve — weekly, with S&P 500 benchmark, scrubbable + range-selectable
         const returnCtx = document.getElementById('optionsReturnChart');
         if (returnCtx) {
-            const EQUITY_LABELS = ["Apr 21", "Apr 28", "May 5", "May 12", "May 19", "May 26", "Jun 2", "Jun 9", "Jun 16", "Jun 23", "Jul 7", "Jul 14", "Jul 21", "Jul 28", "Aug 4", "Aug 11", "Aug 18", "Aug 25", "Sep 1", "Sep 15", "Sep 22", "Sep 29", "Oct 6", "Oct 13", "Oct 20", "Oct 27", "Nov 3", "Nov 10", "Nov 17", "Nov 24", "Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 29", "Jan 5", "Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 20", "Apr 27", "May 4", "May 11", "May 18", "Jun 1", "Jun 8", "Jun 22", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24", "Aug 31", "Sep 7", "Sep 14", "Sep 28"];
+            const EQUITY_LABELS = ["Apr 21", "Apr 28", "May 5", "May 12", "May 19", "May 26", "Jun 2", "Jun 9", "Jun 16", "Jun 23", "Jul 7", "Jul 14", "Jul 21", "Jul 28", "Aug 4", "Aug 11", "Aug 18", "Aug 25", "Sep 1", "Sep 15", "Sep 22", "Sep 29", "Oct 6", "Oct 13", "Oct 20", "Oct 27", "Nov 3", "Nov 10", "Nov 17", "Nov 24", "Dec 1", "Dec 8", "Dec 15", "Dec 22", "Dec 29", "Jan 5", "Jan 12", "Jan 19", "Jan 26", "Feb 2", "Feb 9", "Feb 16", "Feb 23", "Mar 2", "Mar 9", "Mar 16", "Mar 23", "Mar 30", "Apr 6", "Apr 20", "Apr 27", "May 4", "May 11", "May 18", "Jun 1", "Jun 8", "Jun 22", "Jul 6", "Jul 13", "Jul 20", "Jul 27", "Aug 3", "Aug 10", "Aug 17", "Aug 24", "Aug 31", "Sep 7", "Sep 14", "Sep 21", "Sep 28"];
             // Apr 21 point: pre-Schwab broker activity (+1.24%), carried over as-is.
             // Apr 28 onward: full TQQQ book (covered-call combos + assignment settlements +
             // leftover-share disposals after OTM expiries + rolls/verticals), reconstructed
@@ -242,13 +242,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sep 2026 points per the trade log: Aug 31 $163.04, Sep 7 $298.40, Sep 14
             // $1,260.72 (corrected -- the 68/73/80.5 combo leg was originally logged at
             // $454.68 before the full 3-leg breakdown was available; true value is
-            // $1,077.68), Sep 28 $335.04.
-            const EQUITY_STRAT = [1.24, 2.45, 2.45, 3.47, 4.12, 6.00, 6.16, 7.36, 7.36, 9.11, 9.68, 11.20, 11.34, 11.67, 12.76, 13.76, 13.76, 13.30, 15.30, 15.48, 16.36, 17.85, 18.79, 19.45, 23.75, 24.39, 24.36, 24.38, 26.08, 26.08, 27.98, 27.32, 27.77, 27.88, 30.12, 30.21, 32.35, 32.31, 35.10, 33.45, 34.47, 37.25, 35.70, 36.84, 37.31, 38.66, 38.70, 40.69, 40.76, 40.89, 41.81, 42.08, 42.13, 43.64, 48.20, 50.11, 51.68, 52.31, 52.74, 52.50, 53.25, 53.45, 53.57, 53.43, 53.76, 54.23, 55.08, 58.68, 59.64];
+            // $1,077.68). Sep 21: $34.22 (35-share round trip, bought 9/25 @78.605,
+                        // sold 9/26 @79.5826). Sep 28: $335.04.
+            const EQUITY_STRAT = [1.24, 2.45, 2.45, 3.47, 4.12, 6.00, 6.16, 7.36, 7.36, 9.11, 9.68, 11.20, 11.34, 11.67, 12.76, 13.76, 13.76, 13.30, 15.30, 15.48, 16.36, 17.85, 18.79, 19.45, 23.75, 24.39, 24.36, 24.38, 26.08, 26.08, 27.98, 27.32, 27.77, 27.88, 30.12, 30.21, 32.35, 32.31, 35.10, 33.45, 34.47, 37.25, 35.70, 36.84, 37.31, 38.66, 38.70, 40.69, 40.76, 40.89, 41.81, 42.08, 42.13, 43.64, 48.20, 50.11, 51.68, 52.31, 52.74, 52.50, 53.25, 53.45, 53.57, 53.43, 53.76, 54.23, 55.08, 58.68, 58.78, 59.74];
             // Actual S&P 500 daily closes (FRED SP500 series), % change from the Apr 28 2025
             // anchor (no benchmark move assumed for the Apr 21 lead-in point), aligned to
             // each week's Monday or nearest trading day. Sep 7 2026 uses the Sep 8 close
             // (Sep 7 = Labor Day, market closed).
-            const EQUITY_SPX = [0.00, 0.00, 2.20, 5.71, 7.87, 7.10, 7.36, 8.63, 9.12, 8.98, 12.68, 13.38, 14.05, 15.57, 14.49, 15.28, 16.65, 16.47, 16.04, 19.65, 21.07, 20.48, 21.91, 20.37, 21.82, 24.35, 23.93, 23.58, 20.69, 21.28, 23.22, 23.83, 23.29, 24.41, 24.91, 24.84, 26.20, 22.94, 25.71, 26.18, 25.97, 23.78, 23.68, 24.47, 22.92, 21.17, 19.03, 14.74, 19.59, 28.58, 29.76, 30.24, 34.08, 33.90, 37.46, 33.95, 35.16, 36.33, 35.93, 34.63, 34.08, 37.47, 40.23, 40.09, 38.42, 39.02, 38.79, 37.82, 38.98];
+            const EQUITY_SPX = [0.00, 0.00, 2.20, 5.71, 7.87, 7.10, 7.36, 8.63, 9.12, 8.98, 12.68, 13.38, 14.05, 15.57, 14.49, 15.28, 16.65, 16.47, 16.04, 19.65, 21.07, 20.48, 21.91, 20.37, 21.82, 24.35, 23.93, 23.58, 20.69, 21.28, 23.22, 23.83, 23.29, 24.41, 24.91, 24.84, 26.20, 22.94, 25.71, 26.18, 25.97, 23.78, 23.68, 24.47, 22.92, 21.17, 19.03, 14.74, 19.59, 28.58, 29.76, 30.24, 34.08, 33.90, 37.46, 33.95, 35.16, 36.33, 35.93, 34.63, 34.08, 37.47, 40.23, 40.09, 38.42, 39.02, 38.79, 37.82, 40.44, 38.98];
 
             // Parse "Mon D" labels into real dates, rolling the year forward each time the
             // month number decreases (series starts Apr 2025, ends Sep 2026).
@@ -299,20 +300,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 return { labels, strat, spx, headline: strat[strat.length - 1] };
             }
 
-            // Vertical crosshair line following the hovered/scrubbed point.
+            // Vertical crosshair line at the scrubbed index (driven by our own pointer
+            // handlers below, not Chart.js's tooltip/active-element state).
+            let hoverIndex = null;
             const crosshairPlugin = {
                 id: 'crosshair',
                 afterDraw(chart) {
-                    const active = chart.getActiveElements();
-                    if (!active || !active.length) return;
+                    if (hoverIndex === null) return;
+                    const meta = chart.getDatasetMeta(0);
+                    const point = meta.data[hoverIndex];
+                    if (!point) return;
                     const { ctx, chartArea } = chart;
-                    const x = active[0].element.x;
                     ctx.save();
                     ctx.beginPath();
-                    ctx.moveTo(x, chartArea.top);
-                    ctx.lineTo(x, chartArea.bottom);
+                    ctx.moveTo(point.x, chartArea.top);
+                    ctx.lineTo(point.x, chartArea.bottom);
                     ctx.lineWidth = 1;
-                    ctx.strokeStyle = 'rgba(27, 31, 36, 0.25)';
+                    ctx.strokeStyle = 'rgba(27, 31, 36, 0.3)';
                     ctx.setLineDash([4, 4]);
                     ctx.stroke();
                     ctx.restore();
@@ -320,6 +324,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             const initial = buildDataset('ALL');
+            let currentData = initial;
             const equityChart = new Chart(returnCtx.getContext('2d'), {
                 type: 'line',
                 data: {
@@ -369,16 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             align: 'end',
                             labels: { color: '#4b5563', usePointStyle: true, pointStyle: 'line', boxWidth: 20, font: { size: 11 }, padding: 20 }
                         },
-                        tooltip: {
-                            backgroundColor: 'rgba(27, 31, 36, 0.92)',
-                            borderColor: 'rgba(27, 31, 36, 0.08)',
-                            borderWidth: 1,
-                            padding: 10,
-                            titleColor: '#5fd97a',
-                            bodyColor: '#f6f7f9',
-                            boxPadding: 4,
-                            callbacks: { label: (c) => `${c.dataset.label}: ${c.raw >= 0 ? '+' : ''}${c.raw.toFixed(2)}%` }
-                        }
+                        tooltip: { enabled: false }
                     }
                 },
                 plugins: [crosshairPlugin]
@@ -404,9 +400,54 @@ document.addEventListener('DOMContentLoaded', () => {
                             headlineValueEl.classList.toggle('negative', d.headline < 0);
                         }
                         if (headlineLabelEl) headlineLabelEl.textContent = RANGE_SUBLABEL[range];
+                        currentData = d;
+                        hoverIndex = null;
+                        updateReadout(null);
                     });
                 });
             }
+
+            // Scrub readout: a persistent row below the range tabs (not a popup tooltip)
+            // showing both the Strategy and S&P 500 return at the scrubbed point.
+            const scrubDateEl = document.getElementById('scrubDate');
+            const scrubStratEl = document.getElementById('scrubStrat');
+            const scrubSpxEl = document.getElementById('scrubSpx');
+            function updateReadout(idx) {
+                const i = idx === null ? currentData.labels.length - 1 : idx;
+                const strat = currentData.strat[i];
+                const spx = currentData.spx[i];
+                if (scrubDateEl) scrubDateEl.textContent = currentData.labels[i];
+                if (scrubStratEl) scrubStratEl.textContent = (strat >= 0 ? '+' : '') + strat.toFixed(2) + '%';
+                if (scrubSpxEl) scrubSpxEl.textContent = (spx >= 0 ? '+' : '') + spx.toFixed(2) + '%';
+            }
+            function indexFromClientX(clientX) {
+                const rect = returnCtx.getBoundingClientRect();
+                const canvasX = clientX - rect.left;
+                const meta = equityChart.getDatasetMeta(0);
+                let closest = 0, minDist = Infinity;
+                meta.data.forEach((pt, i) => {
+                    const dist = Math.abs(pt.x - canvasX);
+                    if (dist < minDist) { minDist = dist; closest = i; }
+                });
+                return closest;
+            }
+            function handleScrub(clientX) {
+                hoverIndex = indexFromClientX(clientX);
+                updateReadout(hoverIndex);
+                equityChart.update('none');
+            }
+            function endScrub() {
+                hoverIndex = null;
+                updateReadout(null);
+                equityChart.update('none');
+            }
+            returnCtx.addEventListener('mousemove', (e) => handleScrub(e.clientX));
+            returnCtx.addEventListener('mouseleave', endScrub);
+            returnCtx.addEventListener('touchstart', (e) => { if (e.touches[0]) handleScrub(e.touches[0].clientX); }, { passive: true });
+            returnCtx.addEventListener('touchmove', (e) => { if (e.touches[0]) { handleScrub(e.touches[0].clientX); e.preventDefault(); } }, { passive: false });
+            returnCtx.addEventListener('touchend', endScrub);
+
+            updateReadout(null);
         }
     }
 
@@ -435,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { m: "Jun '26", p: "+8.04%", c: "+51.68%" },
             { m: "Jul '26", p: "+1.57%", c: "+53.25%" },
             { m: "Aug '26", p: "+0.51%", c: "+53.76%" },
-            { m: "Sep '26", p: "+5.88%", c: "+59.64%" }
+            { m: "Sep '26", p: "+5.98%", c: "+59.74%" }
         ];
 
         tableBody.innerHTML = '';

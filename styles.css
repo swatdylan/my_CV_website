@@ -626,9 +626,46 @@ main, nav, footer { position: relative; z-index: 2; }
   border-color: var(--accent);
   color: var(--bg);
 }
+.scrub-readout {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  font-size: 0.82rem;
+  color: var(--fg-dim);
+  min-height: 20px;
+}
+.scrub-date {
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.scrub-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.scrub-stat b {
+  color: var(--fg);
+  font-weight: 700;
+}
+.scrub-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.scrub-dot.strategy { background: #1a7f37; }
+.scrub-dot.benchmark { background: rgba(27, 31, 36, 0.4); }
 @media (max-width: 540px) {
   .equity-header { align-items: flex-start; }
   .equity-value { font-size: 1.5rem; }
+  .scrub-readout { gap: 10px 16px; font-size: 0.76rem; }
+  .range-tabs { gap: 4px; width: 100%; }
+  .range-tab { flex: 1 1 0; padding: 6px 4px; font-size: 0.68rem; text-align: center; }
 }
 .roc-chart-wrapper, .pentagon-chart-wrapper {
   height: 420px;
