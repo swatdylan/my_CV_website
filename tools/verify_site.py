@@ -151,6 +151,25 @@ def main():
     check("rangeStartIndex() source uses the fixed 'last point BEFORE cutoff' pattern",
           bool(re.search(r'EQUITY_DATES\[i\]\s*<\s*cutoff', range_fn_src)))
 
+    # The "1-Year Return" stat card uses the SAME open-date convention as the chart's
+    # 1Y tab (no realized-basis override like YTD has) -- so it must always equal
+    # rangeStartIndex(365)'s result exactly. This is exactly the check that would have
+    # caught the stat card going stale after the off-by-one fix changed the chart's
+    # 1Y number but nobody recomputed the card to match.
+    idx_1y = range_start_index_fixed(dates, last_date, 365)
+    expected_1y = round(strat[-1] - strat[idx_1y], 2)
+    index_html_for_1y = load_text("index.html")
+    oneyear_card_match = re.search(
+        r'mini-stat-value[^>]*>(\+[\d.]+)%</span>\s*<span class="mini-stat-label">1-Year', index_html_for_1y)
+    if oneyear_card_match:
+        card_val = float(oneyear_card_match.group(1))
+        check("1-Year stat card matches rangeStartIndex(365) exactly",
+              abs(card_val - expected_1y) < 0.011,
+              f"card={card_val} expected={expected_1y} (baseline {dates[idx_1y]}={strat[idx_1y]})")
+    else:
+        check("found 1-Year stat card to compare", False,
+              "regex didn't match -- update this check if the markup changed")
+
     print()
     print("=" * 70)
     print("4. YTD CONSISTENCY (stat card vs chart)")
