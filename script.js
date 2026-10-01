@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         pointHoverRadius: 4,
                         pointHoverBackgroundColor: '#1a7f37',
                         pointHitRadius: 8,
-                        tension: 0.25,
+                        tension: 0,
                         fill: true
                     }, {
                         label: 'S&P 500 (Benchmark)',
@@ -343,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         borderWidth: 1.5,
                         pointRadius: 0,
                         pointHoverRadius: 0,
-                        tension: 0.25,
+                        tension: 0,
                         fill: false
                     }]
                 },
