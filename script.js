@@ -1,3 +1,18 @@
+// Hard safety net for .reveal-on-scroll cards: CSS defaults them to opacity:0 and
+// only the IntersectionObserver logic below ever adds .visible. If that logic never
+// runs for a given element (a thrown error elsewhere in the main handler, an observer
+// edge case, a slow/odd viewport), the card stays permanently invisible -- "greyed
+// out" with no way to recover. This listener is registered independently of the main
+// DOMContentLoaded handler below, so it still fires even if that one throws partway
+// through, and force-reveals anything still hidden a couple seconds after load.
+window.addEventListener('load', () => {
+    setTimeout(() => {
+        document.querySelectorAll('.reveal-on-scroll:not(.visible)').forEach(el => {
+            el.classList.add('visible');
+        });
+    }, 1500);
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM Content Loaded: Initializing scripts...");
 
