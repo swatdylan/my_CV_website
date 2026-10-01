@@ -279,9 +279,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     return idx;
                 }
+                // Anchor to the last point BEFORE the cutoff (same approach as YTD above),
+                // so that week's own gain is included in the window instead of being used
+                // up as the zero-baseline and silently dropped.
                 const cutoff = new Date(lastDate.getTime() - RANGE_DAYS[range] * 86400000);
-                let idx = EQUITY_DATES.findIndex(d => d >= cutoff);
-                return idx === -1 ? EQUITY_DATES.length - 1 : Math.max(0, idx);
+                let idx = 0;
+                for (let i = 0; i < EQUITY_DATES.length; i++) {
+                    if (EQUITY_DATES[i] < cutoff) idx = i; else break;
+                }
+                return idx;
             }
             const RANGE_SUBLABEL = { '1M': 'past month', '3M': 'past 3 months', '6M': 'past 6 months', 'YTD': 'year to date', '1Y': 'past year', 'ALL': 'all time' };
 
