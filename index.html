@@ -200,8 +200,24 @@
         </table>
       </div>
 
-      <div class="chart-wrapper chart-wrapper-tall">
-        <canvas id="optionsReturnChart"></canvas>
+      <div class="equity-explorer">
+        <div class="equity-header">
+          <div class="equity-headline">
+            <span class="equity-value mono" id="equityHeadlineValue">+59.64%</span>
+            <span class="equity-sublabel mono" id="equityHeadlineLabel">all time</span>
+          </div>
+          <div class="range-tabs mono" id="rangeTabs">
+            <button class="range-tab" data-range="1M">1M</button>
+            <button class="range-tab" data-range="3M">3M</button>
+            <button class="range-tab" data-range="6M">6M</button>
+            <button class="range-tab" data-range="YTD">YTD</button>
+            <button class="range-tab" data-range="1Y">1Y</button>
+            <button class="range-tab active" data-range="ALL">ALL</button>
+          </div>
+        </div>
+        <div class="chart-wrapper chart-wrapper-tall">
+          <canvas id="optionsReturnChart"></canvas>
+        </div>
       </div>
     </article>
 
