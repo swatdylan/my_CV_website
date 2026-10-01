@@ -570,8 +570,15 @@ main, nav, footer { position: relative; z-index: 2; }
   overflow: hidden;
 }
 .chart-wrapper-tall {
-  height: 360px;
+  height: 420px;
   margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+.chart-canvas-area {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .equity-explorer {
   margin-top: 28px;
@@ -627,14 +634,13 @@ main, nav, footer { position: relative; z-index: 2; }
   color: var(--bg);
 }
 .chart-legend-scrub {
-  position: absolute;
-  top: 14px;
-  right: 24px;
-  z-index: 2;
   display: flex;
+  justify-content: flex-end;
   gap: 18px;
   font-size: 0.78rem;
   color: var(--fg-dim);
+  flex: 0 0 auto;
+  margin-bottom: 10px;
 }
 .legend-item {
   display: flex;
@@ -658,7 +664,7 @@ main, nav, footer { position: relative; z-index: 2; }
   .equity-value { font-size: 1.5rem; }
   .range-tabs { gap: 4px; width: 100%; }
   .range-tab { flex: 1 1 0; padding: 6px 4px; font-size: 0.68rem; text-align: center; }
-  .chart-legend-scrub { position: static; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 10px; }
+  .chart-legend-scrub { justify-content: flex-start; flex-direction: column; align-items: flex-start; gap: 4px; }
 }
 .roc-chart-wrapper, .pentagon-chart-wrapper {
   height: 420px;

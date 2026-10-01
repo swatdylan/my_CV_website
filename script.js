@@ -369,6 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    layout: { padding: { bottom: 6 } },
                     interaction: { mode: 'index', intersect: false },
                     scales: {
                         y: {
@@ -379,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         x: {
                             grid: { display: false },
                             border: { display: false },
-                            ticks: { maxTicksLimit: Math.min(initial.labels.length, 10), autoSkip: true, color: '#6b7280', font: { size: 10 } }
+                            ticks: { maxTicksLimit: Math.min(initial.labels.length, 10), autoSkip: true, maxRotation: 0, minRotation: 0, padding: 4, color: '#6b7280', font: { size: 10 } }
                         }
                     },
                     plugins: {
