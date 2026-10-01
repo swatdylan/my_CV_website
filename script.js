@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         x: {
                             grid: { display: false },
                             border: { display: false },
-                            ticks: { maxTicksLimit: 8, autoSkip: true, color: '#6b7280', font: { size: 10 } }
+                            ticks: { maxTicksLimit: Math.min(initial.labels.length, 10), autoSkip: true, color: '#6b7280', font: { size: 10 } }
                         }
                     },
                     plugins: {
@@ -397,6 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         equityChart.data.labels = d.labels;
                         equityChart.data.datasets[0].data = d.strat;
                         equityChart.data.datasets[1].data = d.spx;
+                        equityChart.options.scales.x.ticks.maxTicksLimit = Math.min(d.labels.length, 10);
                         equityChart.update();
                         if (headlineValueEl) {
                             headlineValueEl.textContent = (d.headline >= 0 ? '+' : '') + d.headline.toFixed(2) + '%';
