@@ -626,29 +626,22 @@ main, nav, footer { position: relative; z-index: 2; }
   border-color: var(--accent);
   color: var(--bg);
 }
-.scrub-readout {
+.chart-legend-scrub {
+  position: absolute;
+  top: 14px;
+  right: 24px;
+  z-index: 2;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
   gap: 18px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  background: var(--bg-card-2);
-  border: 1px solid var(--border);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   color: var(--fg-dim);
-  min-height: 20px;
 }
-.scrub-date {
-  color: var(--muted);
-  letter-spacing: 0.02em;
-}
-.scrub-stat {
+.legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.scrub-stat b {
+.legend-item b {
   color: var(--fg);
   font-weight: 700;
 }
@@ -663,9 +656,9 @@ main, nav, footer { position: relative; z-index: 2; }
 @media (max-width: 540px) {
   .equity-header { align-items: flex-start; }
   .equity-value { font-size: 1.5rem; }
-  .scrub-readout { gap: 10px 16px; font-size: 0.76rem; }
   .range-tabs { gap: 4px; width: 100%; }
   .range-tab { flex: 1 1 0; padding: 6px 4px; font-size: 0.68rem; text-align: center; }
+  .chart-legend-scrub { position: static; flex-direction: column; align-items: flex-start; gap: 4px; margin-bottom: 10px; }
 }
 .roc-chart-wrapper, .pentagon-chart-wrapper {
   height: 420px;

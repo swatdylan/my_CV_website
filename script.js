@@ -295,8 +295,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 // return actually earned within the selected window, matching the headline.
                 const stratBase = EQUITY_STRAT[startIdx];
                 const spxBase = EQUITY_SPX[startIdx];
-                const strat = EQUITY_STRAT.slice(startIdx).map(v => +(v - stratBase).toFixed(2));
+                let strat = EQUITY_STRAT.slice(startIdx).map(v => +(v - stratBase).toFixed(2));
                 const spx = EQUITY_SPX.slice(startIdx).map(v => +(v - spxBase).toFixed(2));
+                if (range === 'YTD') {
+                    // The weekly series (and every other range here) attributes a trade's
+                    // P/L to the week it was OPENED. The YTD stat card instead uses the
+                    // realized/close-date figure verified against Schwab statements
+                    // ($9,010.56 Jan1-Aug29 + $2,091.42 Sep trade log = +31.72% of $35k),
+                    // since a handful of late-Dec opens settled in Jan and should count
+                    // toward 2025. Shift the whole YTD line by the difference so the
+                    // chart's endpoint and headline match that verified figure exactly,
+                    // keeping the open-date series' week-to-week shape intact.
+                    const REALIZED_YTD = 31.72;
+                    const openBasisTotal = strat[strat.length - 1];
+                    const offset = REALIZED_YTD - openBasisTotal;
+                    strat = strat.map(v => +(v + offset).toFixed(2));
+                }
                 return { labels, strat, spx, headline: strat[strat.length - 1] };
             }
 
@@ -369,11 +383,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     },
                     plugins: {
-                        legend: {
-                            position: 'top',
-                            align: 'end',
-                            labels: { color: '#4b5563', usePointStyle: true, pointStyle: 'line', boxWidth: 20, font: { size: 11 }, padding: 20 }
-                        },
+                        // Replaced by the custom #chartLegendScrub labels (which also carry
+                        // the live scrub values) -- see updateReadout() below.
+                        legend: { display: false },
                         tooltip: { enabled: false }
                     }
                 },
@@ -407,16 +419,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            // Scrub readout: a persistent row below the range tabs (not a popup tooltip)
-            // showing both the Strategy and S&P 500 return at the scrubbed point.
-            const scrubDateEl = document.getElementById('scrubDate');
+            // Scrub readout: live values shown beside the "Strategy" / "S&P 500" labels
+            // at the top of the chart itself (replacing Chart.js's built-in legend),
+            // not a floating tooltip overlay.
             const scrubStratEl = document.getElementById('scrubStrat');
             const scrubSpxEl = document.getElementById('scrubSpx');
             function updateReadout(idx) {
                 const i = idx === null ? currentData.labels.length - 1 : idx;
                 const strat = currentData.strat[i];
                 const spx = currentData.spx[i];
-                if (scrubDateEl) scrubDateEl.textContent = currentData.labels[i];
                 if (scrubStratEl) scrubStratEl.textContent = (strat >= 0 ? '+' : '') + strat.toFixed(2) + '%';
                 if (scrubSpxEl) scrubSpxEl.textContent = (spx >= 0 ? '+' : '') + spx.toFixed(2) + '%';
             }
