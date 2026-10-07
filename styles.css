@@ -51,7 +51,13 @@ body {
   background: var(--bg);
 }
 
-.bg-grid-fine {
+.bg-grid-fine { isolation: isolate; }
+.bg-grid-fine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background-image:
     linear-gradient(var(--border) 1px, transparent 1px),
     linear-gradient(90deg, var(--border) 1px, transparent 1px);
