@@ -140,13 +140,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         console.log("Chart.js loaded. Initializing plots...");
 
-        Chart.defaults.color = '#6b7280';
-        Chart.defaults.font.family = "'JetBrains Mono', monospace";
+        // Chart colours come from the CSS theme variables, so both themes stay in step.
+        const C = {};
+        const painters = [];
+        function readColors() {
+            const css = getComputedStyle(document.documentElement);
+            const v = name => css.getPropertyValue(name).trim();
+            Object.assign(C, {
+                text: v('--foreground'), muted: v('--muted-foreground'), grid: v('--chart-grid'),
+                bull: v('--bull'), bullSoft: v('--bull-soft'), bullArea: v('--bull-area'),
+                bench: v('--chart-bench')
+            });
+            Chart.defaults.color = C.muted;
+        }
+        function themed(chart, paint) {
+            painters.push(() => { paint(chart); chart.update('none'); });
+            paint(chart);
+            chart.update('none');
+        }
+        readColors();
+        Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+        document.addEventListener('themechange', () => { readColors(); painters.forEach(p => p()); });
 
         // ROC Curve
         const rocCtx = document.getElementById('rocCurveChart');
         if (rocCtx) {
-            new Chart(rocCtx.getContext('2d'), {
+            const rocChart = new Chart(rocCtx.getContext('2d'), {
                 type: 'scatter',
                 data: {
                     datasets: [{
@@ -180,15 +199,22 @@ document.addEventListener('DOMContentLoaded', () => {
                         x: { type: 'linear', min: 0, max: 1, grid: { color: 'rgba(27, 31, 36, 0.06)' } },
                         y: { type: 'linear', min: 0, max: 1, grid: { color: 'rgba(27, 31, 36, 0.06)' } }
                     },
-                    plugins: { legend: { labels: { color: '#1b1f24', usePointStyle: true } } }
+                    plugins: { legend: { labels: { usePointStyle: true } } }
                 }
+            });
+            themed(rocChart, c => {
+                const [model, random] = c.data.datasets;
+                model.borderColor = C.bull; model.backgroundColor = C.bullArea;
+                random.borderColor = C.bench;
+                ['x', 'y'].forEach(a => { c.options.scales[a].grid.color = C.grid; c.options.scales[a].ticks.color = C.muted; });
+                c.options.plugins.legend.labels.color = C.text;
             });
         }
 
         // Radar Chart
         const radarCtx = document.getElementById('tqqqPerformanceChart');
         if (radarCtx) {
-            new Chart(radarCtx.getContext('2d'), {
+            const radarChart = new Chart(radarCtx.getContext('2d'), {
                 type: 'radar',
                 data: {
                     labels: ['ROC AUC', 'Accuracy', 'Breach Precision', 'Hold Precision', 'Brier Score'],
@@ -233,8 +259,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             meta.data.forEach((point, index) => {
                                 const { x, y } = point.getProps(['x', 'y'], true);
                                 ctx.save();
-                                ctx.fillStyle = '#1a7f37';
-                                ctx.font = 'bold 10px "JetBrains Mono"';
+                                ctx.fillStyle = C.bull;
+                                ctx.font = 'bold 11px Inter, sans-serif';
                                 ctx.textAlign = 'center';
                                 ctx.fillText((dataset.data[index] * 100).toFixed(0) + '%', x, y - 15);
                                 ctx.restore();
@@ -242,6 +268,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                     }
                 }]
+            });
+            themed(radarChart, c => {
+                const d = c.data.datasets[0];
+                d.borderColor = d.pointBackgroundColor = d.pointBorderColor = C.bull; d.backgroundColor = C.bullArea;
+                const r = c.options.scales.r;
+                r.grid.color = r.angleLines.color = C.grid;
+                r.pointLabels.color = C.text;
             });
         }
 
@@ -351,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ctx.moveTo(point.x, chartArea.top);
                     ctx.lineTo(point.x, chartArea.bottom);
                     ctx.lineWidth = 1;
-                    ctx.strokeStyle = 'rgba(27, 31, 36, 0.3)';
+                    ctx.strokeStyle = C.bench;
                     ctx.setLineDash([4, 4]);
                     ctx.stroke();
                     ctx.restore();
@@ -412,6 +445,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 },
                 plugins: [crosshairPlugin]
+            });
+
+            themed(equityChart, c => {
+                const [strategy, benchmark] = c.data.datasets;
+                strategy.borderColor = strategy.pointHoverBackgroundColor = C.bull;
+                strategy.backgroundColor = C.bullArea;
+                benchmark.borderColor = C.bench;
+                c.options.scales.y.grid.color = C.grid;
+                c.options.scales.y.ticks.color = c.options.scales.x.ticks.color = C.muted;
             });
 
             const headlineValueEl = document.getElementById('equityHeadlineValue');

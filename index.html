@@ -3,36 +3,42 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#f6f7f9" />
+<meta name="theme-color" content="#0B1120" />
+<script>try{var t=localStorage.getItem("theme");if(t!=="system")document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
 <title>Dylan Ang Kai Hao - Quantitative Researcher</title>
 <meta name="description" content="Resume of Dylan Ang Kai Hao, specializing in Quantitative Research and Data Analytics." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="atmosphere"></div>
-<div class="grain"></div>
+<div class="page-ocean" aria-hidden="true">
+  <canvas id="oceanCanvas"></canvas>
+  <div class="page-ocean-shade"></div>
+</div>
 <div class="nav-progress" id="navProgress"></div>
 
 <nav class="navbar">
   <div class="nav-content">
     <a href="#home" class="logo">
-      <span class="logo-mark">∠</span>
-      <span>DA</span>
+      <span>Dylan</span><span class="logo-accent">Ang</span>
     </a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#skills">Skills</a></li>
     </ul>
-    <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
+    <div class="nav-right">
+      <button type="button" class="theme-cycle" id="themeToggle" aria-label="Switch theme" title="Switch theme"></button>
+      <a href="mailto:dylan.ang@u.nus.edu" class="nav-cta">Contact</a>
+      <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -49,11 +55,11 @@
     <h1 class="name">Dylan Ang <span class="gradient-text">Kai Hao</span></h1>
     <p class="tagline">Quantitative Researcher &amp; Data Analyst</p>
     <div class="contact-info">
-      <a href="mailto:dylan.ang@u.nus.edu" class="contact-link">
+      <a href="mailto:dylan.ang@u.nus.edu" class="contact-link btn-primary">
         <i class="fas fa-envelope"></i>
         dylan.ang@u.nus.edu
       </a>
-      <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" rel="noopener" class="contact-link">
+      <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" rel="noopener" class="contact-link btn-secondary">
         <i class="fab fa-linkedin-in"></i>
         LinkedIn
       </a>
@@ -69,10 +75,9 @@
 <section id="experience" class="section">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">01 — RESEARCH EXPERIENCE</div>
+      <div class="section-num"><span><b>01</b>Research experience</span></div>
       <h2 class="section-title">Research <span class="gradient-text">Portfolio</span></h2>
     </div>
-    <div></div>
     <p class="section-kicker">Quantitative intelligence, ML systems, and market-neutral options architecture — built with statistical rigor.</p>
   </div>
 
@@ -259,13 +264,12 @@
 </section>
 
 <!-- EDUCATION -->
-<section id="education" class="section bg-grid-fine">
+<section id="education" class="section">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">02 — ACADEMIC FOUNDATION</div>
+      <div class="section-num"><span><b>02</b>Academic foundation</span></div>
       <h2 class="section-title">Quantitative <span class="gradient-text">Philosophy</span></h2>
     </div>
-    <div></div>
     <p class="section-kicker">First-class honours in Philosophy with a minor in Language Science — formal logic as a foundation for reasoning under uncertainty.</p>
   </div>
 
@@ -306,17 +310,16 @@
 <section id="skills" class="section">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">03 — TECH STACK</div>
+      <div class="section-num"><span><b>03</b>Tech stack</span></div>
       <h2 class="section-title">System <span class="gradient-text">Proficiencies</span></h2>
     </div>
-    <div></div>
     <p class="section-kicker">Languages, libraries, and tools built around Python, statistics, and rigorous model validation.</p>
   </div>
 
   <div class="skills-grid reveal-on-scroll">
     <div class="skill-category">
       <div class="skill-cat-header">
-        <div class="skill-icon-wrap">💻</div>
+        <div class="skill-icon-wrap" aria-hidden="true">01</div>
         <h3>Programming</h3>
       </div>
       <div class="skill-pills">
@@ -329,7 +332,7 @@
     </div>
     <div class="skill-category">
       <div class="skill-cat-header">
-        <div class="skill-icon-wrap">📊</div>
+        <div class="skill-icon-wrap" aria-hidden="true">02</div>
         <h3>Analytics</h3>
       </div>
       <div class="skill-pills">
@@ -341,7 +344,7 @@
     </div>
     <div class="skill-category">
       <div class="skill-cat-header">
-        <div class="skill-icon-wrap">🛠️</div>
+        <div class="skill-icon-wrap" aria-hidden="true">03</div>
         <h3>Tools</h3>
       </div>
       <div class="skill-pills">
@@ -361,13 +364,12 @@
 </section>
 
 <!-- LEADERSHIP -->
-<section id="leadership" class="section bg-grid-fine">
+<section id="leadership" class="section">
   <div class="section-header reveal-on-scroll">
     <div>
-      <div class="section-num">04 — LEADERSHIP</div>
+      <div class="section-num"><span><b>04</b>Leadership</span></div>
       <h2 class="section-title">Discipline &amp; <span class="gradient-text">Command</span></h2>
     </div>
-    <div></div>
     <p class="section-kicker">Two arenas outside the screen: 15+ hours of weekly triathlon training on the national team, and a year leading the Galaxy Astronomy Club.</p>
   </div>
 
@@ -396,8 +398,7 @@
   <div class="footer-grid">
     <div>
       <div class="logo" style="margin-bottom: 24px;">
-        <span class="logo-mark">∠</span>
-        <span>DYLAN ANG KAI HAO</span>
+        <span>Dylan</span><span class="logo-accent">Ang</span>
       </div>
       <p class="footer-quote">
         "Mathematics is the art of giving the same name to different things."
@@ -426,5 +427,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.js"></script>
 <script src="script.js"></script>
+<script src="theme.js"></script>
+<script src="ocean.js"></script>
 </body>
 </html>
