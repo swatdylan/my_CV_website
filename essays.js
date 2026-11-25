@@ -5,9 +5,9 @@
     if (!desktop || navigator.pdfViewerEnabled === false) return;
     document.querySelectorAll('.pdf-frame').forEach(box => {
         const frame = document.createElement('iframe');
-        frame.src = box.dataset.pdf + '#view=FitH';
+        const url = box.dataset.pdf;
+        frame.src = url + (url.includes('#') ? '&' : '#') + 'view=FitH';
         frame.title = box.dataset.title + ' (PDF)';
-        frame.loading = 'lazy';
         box.classList.add('embedded');
         box.replaceChildren(frame);
     });
