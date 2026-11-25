@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0B1120" />
+<script>try{var t=localStorage.getItem("theme");if(t!=="system")document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
+<title>Essays - Dylan Ang Kai Hao</title>
+<meta name="description" content="Philosophy essays by Dylan Ang Kai Hao on consciousness and confirmation theory." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css?v=3">
+</head>
+<body>
+
+<div class="page-ocean" aria-hidden="true">
+  <canvas id="oceanCanvas"></canvas>
+  <div class="page-ocean-shade"></div>
+</div>
+<div class="nav-progress" id="navProgress"></div>
+
+<nav class="navbar">
+  <div class="nav-content">
+    <a href="index.html" class="logo">
+      <span>Dylan</span><span class="logo-accent">Ang</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#education">Education</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="essays.html" class="current" aria-current="page">Essays</a></li>
+    </ul>
+    <div class="nav-right">
+      <button type="button" class="theme-cycle" id="themeToggle" aria-label="Switch theme" title="Switch theme"></button>
+      <a href="mailto:dylan.ang@u.nus.edu" class="nav-cta">Contact</a>
+      <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<section id="essays" class="section essays-page">
+  <header class="section-header">
+    <div class="section-num"><span>Writing</span></div>
+    <h1 class="section-title">Philosophy <span class="gradient-text">Essays</span></h1>
+    <p class="section-kicker">Work on philosophy of mind and confirmation theory.</p>
+  </header>
+
+  <div class="container-inner">
+    <article class="project-card essay-card" id="synthetic-synapses">
+      <div class="project-header">
+        <span class="category-tag teal">PUBLISHED</span>
+        <span class="project-date">WINTER 2025</span>
+      </div>
+      <h2 class="project-title">Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness</h2>
+      <p class="company">The Red Stone Journal: An Undergraduate Journal of NUS Philosophy, Vol. 5(1) · Author’s manuscript, second revision</p>
+      <h3 class="metrics-label">Abstract</h3>
+      <p class="project-desc">This paper challenges biological organicism, the view that consciousness requires a biological substrate. It argues against that claim using two arguments: the Brain-Computer Interface (BCI) Argument and the Virtual Mind Argument.</p>
+      <div class="essay-actions">
+        <a class="btn-primary" href="essays/synthetic-synapses-and-virtual-minds.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="btn-secondary" href="essays/synthetic-synapses-and-virtual-minds.pdf" download><i class="fas fa-download"></i> Download</a>
+        <a class="essay-link" href="https://blog.nus.edu.sg/theredstonejournal/volumes/volume-5/" target="_blank" rel="noopener">Journal issue &rarr;</a>
+      </div>
+      <div class="pdf-frame" data-pdf="essays/synthetic-synapses-and-virtual-minds.pdf" data-title="Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness">
+        <a class="pdf-preview" href="essays/synthetic-synapses-and-virtual-minds.pdf" target="_blank" rel="noopener">
+          <img src="essays/synthetic-synapses-and-virtual-minds.png" alt="First page of Synthetic Synapses and Virtual Minds: Challenging the Biological Necessity of Consciousness" loading="lazy">
+          <span>Tap to read the full PDF</span>
+        </a>
+      </div>
+    </article>
+    <article class="project-card essay-card" id="paradox-of-confirmation">
+      <div class="project-header">
+        <span class="category-tag teal">ESSAY</span>
+        <span class="project-date">OCT 2024</span>
+      </div>
+      <h2 class="project-title">On the Paradox of Confirmation</h2>
+      <p class="company">Dylan Ang Kai Hao</p>
+      <h3 class="metrics-label">Summary</h3>
+      <p class="project-desc">An explanation and defence of Hempel’s paradox of confirmation: taking Nicod’s Criterion and the Equivalence Condition together, any object that is not a raven or is black confirms that all ravens are black. The essay accepts this conclusion and answers an objection to the Equivalence Condition.</p>
+      <div class="essay-actions">
+        <a class="btn-primary" href="essays/on-the-paradox-of-confirmation.pdf" target="_blank" rel="noopener"><i class="fas fa-file-pdf"></i> Open PDF</a>
+        <a class="btn-secondary" href="essays/on-the-paradox-of-confirmation.pdf" download><i class="fas fa-download"></i> Download</a>
+      </div>
+      <div class="pdf-frame" data-pdf="essays/on-the-paradox-of-confirmation.pdf" data-title="On the Paradox of Confirmation">
+        <a class="pdf-preview" href="essays/on-the-paradox-of-confirmation.pdf" target="_blank" rel="noopener">
+          <img src="essays/on-the-paradox-of-confirmation.png" alt="First page of On the Paradox of Confirmation" loading="lazy">
+          <span>Tap to read the full PDF</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom: 24px;">
+        <span>Dylan</span><span class="logo-accent">Ang</span>
+      </div>
+      <p class="footer-quote">
+        "Mathematics is the art of giving the same name to different things."
+        <span class="author">— Henri Poincaré</span>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Sections</h4>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#education">Education</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#leadership">Leadership</a>
+      <a href="essays.html">Essays</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:dylan.ang@u.nus.edu">dylan.ang@u.nus.edu</a>
+      <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#essays">Back to top</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Dylan Ang Kai Hao · Quantitative Researcher</span>
+    <span>Built with care · v 2.0</span>
+  </div>
+</footer>
+
+<script src="script.js?v=3"></script>
+<script src="theme.js"></script>
+<script src="ocean.js"></script>
+<script src="essays.js"></script>
+</body>
+</html>

@@ -526,7 +526,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    initCharts();
+    // Only the home page has charts (and loads Chart.js).
+    if (document.getElementById('optionsReturnChart')) initCharts();
 
     /* ============================================================
        MONTHLY PERFORMANCE TABLE

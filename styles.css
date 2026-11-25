@@ -233,6 +233,21 @@ footer { padding: 48px 24px 32px; border-top: 1px solid var(--border); backgroun
 .reveal-on-scroll { transform: translateY(24px); transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .reveal-on-scroll.visible { transform: none; }
 
+/* ESSAYS PAGE */
+.essays-page { padding-top: 96px; min-height: 80vh; }
+.nav-links a.current { color: var(--foreground); box-shadow: inset 0 -2px 0 var(--bull); }
+.essay-card { scroll-margin-top: 80px; }
+.essay-card .metrics-label { margin: 16px 0 6px; }
+.essay-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; }
+.essay-actions .btn-primary, .essay-actions .btn-secondary { min-height: 44px; padding: 0 18px; font-size: 14px; }
+.essay-link { color: var(--accent); font-size: 14px; font-weight: 600; text-underline-offset: 3px; }
+.pdf-frame { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: color-mix(in srgb, var(--card) 70%, transparent); }
+.pdf-frame.embedded { height: min(85vh, 900px); }
+.pdf-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.pdf-preview { display: block; max-width: 520px; margin: 0 auto; padding: 16px; text-align: center; text-decoration: none; }
+.pdf-preview img { display: block; width: 100%; height: auto; border-radius: 6px; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,0.22); }
+.pdf-preview span { display: block; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--accent); }
+
 /* RESPONSIVE */
 @media (max-width: 1100px) {
   .metrics-grid, .metrics-grid:has(> :nth-child(7)) { grid-template-columns: repeat(3, 1fr); }
@@ -254,6 +269,7 @@ footer { padding: 48px 24px 32px; border-top: 1px solid var(--border); backgroun
   .metrics-grid, .metrics-grid:has(> :nth-child(7)) { grid-template-columns: 1fr 1fr; }
   .mini-stat-value { font-size: 22px; }
   .contact-info .btn-primary, .contact-info .btn-secondary { width: 100%; }
+  .essay-actions .btn-primary, .essay-actions .btn-secondary { flex: 1 1 130px; }
   .terminal-table th, .terminal-table td { padding-left: 12px; padding-right: 12px; }
   .equity-value { font-size: 1.6rem; }
   .range-tabs { gap: 4px; width: 100%; }
