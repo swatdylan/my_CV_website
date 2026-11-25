@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0B1120" />
+<script>try{var t=localStorage.getItem("theme");if(t!=="system")document.documentElement.setAttribute("data-theme",t==="light"?"light":"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}</script>
+<title>Paradox of Confirmation, a visual essay - Dylan Ang Kai Hao</title>
+<meta name="description" content="An interactive flow diagram of the paradox of confirmation: agree or disagree with each premise and see where the argument leads." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css?v=5">
+<style>
+/* Visual essay: flow diagram and question pop-up */
+/* Layout: the flow diagram, with a question card that sits beside the current step (a bottom sheet on phones). Tokens follow the portfolio. */
+:root {
+  --bg:#F8FAFC; --fg:#0F172A; --card:#FFFFFF; --muted:#526071; --line:#E2E8F0; --line-2:#CBD5E1;
+  --bull:#047857; --bull-soft:#ECFDF5; --accent:#1D4ED8; --accent-ink:#FFFFFF; --warn:#B45309; --warn-soft:#FFFBEB; --bear:#DC2626; --bear-soft:#FEF2F2;
+  --font:Inter,system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#0B1120; --fg:#E6EBF3; --card:#111A2B; --muted:#A9B6C9; --line:#1E2A3F; --line-2:#2C3B55;
+  --bull:#34D399; --bull-soft:rgba(52,211,153,.12); --accent:#60A5FA; --accent-ink:#0B1120; --warn:#FBBF24; --warn-soft:rgba(251,191,36,.12); --bear:#F87171; --bear-soft:rgba(248,113,113,.12);
+  color-scheme:dark; } }
+:root[data-theme="dark"] {
+  --bg:#0B1120; --fg:#E6EBF3; --card:#111A2B; --muted:#A9B6C9; --line:#1E2A3F; --line-2:#2C3B55;
+  --bull:#34D399; --bull-soft:rgba(52,211,153,.12); --accent:#60A5FA; --accent-ink:#0B1120; --warn:#FBBF24; --warn-soft:rgba(251,191,36,.12); --bear:#F87171; --bear-soft:rgba(248,113,113,.12);
+  color-scheme:dark; }
+* { box-sizing:border-box; }
+body { background:var(--bg); color:var(--fg); font-family:var(--font); line-height:1.55; }
+.wrap { max-width:1060px; margin:0 auto; padding-block:84px 56px; padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px)); }
+header { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:8px 24px; margin-bottom:20px; }
+h1 { margin:0; font-size:clamp(23px,4vw,32px); line-height:1.15; letter-spacing:-.025em; text-wrap:balance; }
+header p { margin:4px 0 0; color:var(--muted); font-size:14px; }
+header a { color:var(--accent); font-size:14px; font-weight:600; }
+.main { display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr); gap:28px; align-items:start; }
+.side { position:relative; align-self:stretch; min-width:0; }
+
+/* diagram */
+.tree { position:relative; }
+.tree svg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+.edge { fill:none; stroke:var(--line-2); stroke-width:2; }
+.edge.taken { stroke:var(--bull); stroke-width:4; }
+.edge.next { stroke:var(--accent); stroke-width:2.5; }
+.edge.closed { stroke-dasharray:3 6; opacity:.7; }
+.edge.willclose { stroke:var(--bear); stroke-dasharray:3 6; opacity:1; }
+.edge.back { stroke:var(--warn); stroke-dasharray:7 5; } .edge.back.taken { stroke-width:3.5; } .edge.back.next { stroke-width:3; } .edge.back.closed { stroke:var(--line-2); stroke-dasharray:3 6; }
+.ah { fill:var(--line-2); } .ah.taken { fill:var(--bull); } .ah.next { fill:var(--accent); } .ah.willclose { fill:var(--bear); }
+.ah.back { fill:var(--warn); } .ah.back.closed { fill:var(--line-2); }
+.el { position:absolute; transform:translate(-50%,-50%); font-size:10px; font-weight:700; padding:1px 7px; border-radius:999px; background:var(--card); border:1px solid var(--line-2); color:var(--muted); white-space:nowrap; z-index:1; }
+.el.taken { color:var(--bull); border-color:var(--bull); } .el.next { color:var(--accent); border-color:var(--accent); }
+.el.closed { opacity:.55; } .el.willclose { color:var(--bear); border-color:var(--bear); opacity:1; }
+.el.back { color:var(--warn); border-color:var(--warn); } .el.back.closed { color:var(--muted); border-color:var(--line-2); }
+.el.vert { writing-mode:vertical-rl; transform:translate(-50%,-50%) rotate(180deg); padding:7px 1px; }
+.node { position:absolute; transform:translateX(-50%); height:64px; padding:5px 7px; display:flex; flex-direction:column; justify-content:center; gap:1px; text-align:center; font:inherit; color:var(--fg); background:var(--card); border:1.5px solid var(--line-2); border-radius:10px; line-height:1.25; z-index:2; }
+.node b { font-size:12px; } .node small { font-size:10px; font-weight:600; color:var(--muted); }
+.node.reply { border-radius:4px; } .node.end { border-radius:32px; } .node.loop { border-color:var(--warn); border-style:dashed; border-radius:4px; }
+.node:disabled { opacity:1; color:var(--fg); }
+.node.here { border-color:var(--accent); border-width:3px; box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 22%,transparent); } .node.here small { color:var(--accent); }
+.node.done { border-color:var(--bull); background:var(--bull-soft); cursor:pointer; } .node.done small { color:var(--bull); }
+.node.loop.here { border-color:var(--warn); border-style:solid; box-shadow:0 0 0 5px var(--warn-soft); } .node.loop.here small { color:var(--warn); }
+.node.closed { border-style:dashed; border-color:var(--line-2); color:var(--muted); opacity:.5; }
+.node.willclose { border-color:var(--bear); background:var(--bear-soft); opacity:1; } .node.willclose small { color:var(--bear); }
+
+/* question card */
+.card { position:absolute; left:0; right:0; top:0; background:var(--card); border:1.5px solid var(--accent); border-radius:14px; box-shadow:0 14px 40px rgba(2,8,23,.18); transition:top .35s ease; }
+.card::before { content:""; position:absolute; left:-8px; top:var(--tip,30px); width:14px; height:14px; background:var(--card); border-left:1.5px solid var(--accent); border-bottom:1.5px solid var(--accent); transform:rotate(45deg); }
+.card.warn, .card.warn::before { border-color:var(--warn); } .card.good, .card.good::before { border-color:var(--bull); } .card.bad, .card.bad::before { border-color:var(--bear); }
+.card-top { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px 18px 0; }
+.kicker { font-size:12px; font-weight:700; color:var(--muted); }
+.body { padding:0 18px; }
+.body h2 { margin:6px 0 10px; font-size:18px; line-height:1.35; letter-spacing:-.015em; }
+.body h2:focus { outline:none; }
+.body p { margin:0 0 10px; font-size:14px; }
+.body blockquote { margin:0 0 12px; padding:10px 12px; background:var(--bg); border:1px solid var(--line); border-radius:8px; font-size:13px; }
+.body blockquote span { display:block; margin-bottom:3px; font-size:11px; font-weight:700; color:var(--muted); }
+.banner { padding:9px 12px; border:1px solid var(--warn); background:var(--warn-soft); border-radius:8px; }
+.proof { list-style:none; margin:0 0 12px; padding:0; display:grid; gap:6px; }
+.proof li { display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:8px; align-items:center; font-size:13px; padding:7px 10px; border:1px solid var(--line); border-radius:8px; }
+.proof code { font:12px ui-monospace,Menlo,monospace; color:var(--muted); }
+.proof li.clash { border-color:var(--bear); background:var(--bear-soft); }
+.actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:4px 18px 0; }
+.actions:empty { display:none; }
+button.choice, button.plain { font:700 14px var(--font); border-radius:10px; cursor:pointer; min-height:46px; padding:8px 12px; }
+button.choice { border:2px solid var(--bull); background:var(--bull); color:var(--card); }
+button.choice.no { background:transparent; color:var(--bear); border-color:var(--bear); }
+button.choice.back { grid-column:auto; background:transparent; color:var(--warn); border-color:var(--warn); }
+button.plain { font-size:12px; min-height:34px; background:transparent; color:var(--muted); border:1px solid var(--line-2); }
+button.plain:disabled { opacity:.4; cursor:default; }
+button:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.foot { display:flex; justify-content:space-between; gap:8px; padding:12px 18px 14px; }
+.peek { display:none; }
+/* phones: the card becomes a pop-up sheet along the bottom */
+@media (max-width:800px) {
+  .main { display:block; } .side { position:static; }
+  .card { position:fixed; top:auto; left:0; right:0; bottom:0; z-index:20; max-height:60vh; overflow-y:auto; border-radius:16px 16px 0 0; border-width:2px 0 0; box-shadow:0 -12px 40px rgba(2,8,23,.3); padding-bottom:env(safe-area-inset-bottom,0px); }
+  .card::before { display:none; }
+  .card-top { position:sticky; top:0; background:var(--card); padding-bottom:6px; }
+  .actions { position:sticky; bottom:0; background:var(--card); padding-block:8px; }
+  .peek { display:inline-block; }
+  .card.hidden-body .body, .card.hidden-body .actions, .card.hidden-body .foot { display:none; }
+  .card.hidden-body .card-top { padding-block:12px; }
+}
+@media (prefers-reduced-motion:reduce) { .card { transition:none; } }
+</style>
+</head>
+<body>
+
+<div class="nav-progress" id="navProgress"></div>
+
+<nav class="navbar">
+  <div class="nav-content">
+    <a href="index.html" class="logo">
+      <span>Dylan</span><span class="logo-accent">Ang</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="index.html#experience">Experience</a></li>
+      <li><a href="index.html#education">Education</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="essays.html" class="current" aria-current="page">Essays</a></li>
+    </ul>
+    <div class="nav-right">
+      <button type="button" class="theme-cycle" id="themeToggle" aria-label="Switch theme" title="Switch theme"></button>
+      <a href="mailto:dylan.ang@u.nus.edu" class="nav-cta">Contact</a>
+      <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header>
+    <div>
+      <h1>Can a red pen tell you about ravens?</h1>
+      <p>Follow the argument one premise at a time. From the essay by Dylan Ang Kai Hao.</p>
+    </div>
+    <a href="essays.html#paradox-of-confirmation">Read the written essay</a>
+  </header>
+  <div class="main">
+    <div class="tree" id="tree"></div>
+    <div class="side">
+      <section class="card" id="card" aria-live="polite">
+        <div class="card-top"><span class="kicker" id="kicker"></span><button type="button" class="plain peek" id="peek">Hide</button></div>
+        <div class="body" id="body"></div>
+        <div class="actions" id="actions"></div>
+        <div class="foot"><button type="button" class="plain" id="undo">Undo</button><button type="button" class="plain" id="restart">Start again</button></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom: 24px;">
+        <span>Dylan</span><span class="logo-accent">Ang</span>
+      </div>
+      <p class="footer-quote">
+        "Mathematics is the art of giving the same name to different things."
+        <span class="author">— Henri Poincaré</span>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h4>Sections</h4>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#education">Education</a>
+      <a href="index.html#skills">Skills</a>
+      <a href="index.html#leadership">Leadership</a>
+      <a href="essays.html">Essays</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:dylan.ang@u.nus.edu">dylan.ang@u.nus.edu</a>
+      <a href="https://www.linkedin.com/in/dylanangkh" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Dylan Ang Kai Hao · Quantitative Researcher</span>
+    <span>Built with care · v 2.0</span>
+  </div>
+</footer>
+
+<script id="graph">
+// col 1 is the main line of the argument; col 0 holds replies and stopping points
+const NODES = {
+  p1:{ col:1, row:0, tag:'Premise 1', label:'Nicod’s Criterion' },
+  r1:{ col:0, row:1, tag:'Reply', label:'Why P1 holds', reply:true },
+  ea:{ col:0, row:2, tag:'Ending A', label:'Stops at Premise 1', end:true },
+  p2:{ col:1, row:2, tag:'Premise 2', label:'Equivalence Condition' },
+  r2:{ col:0, row:3, tag:'Reply', label:'Two sides of one coin', reply:true },
+  eb:{ col:0, row:4, tag:'Ending B', label:'Stops at Premise 2', end:true },
+  p3:{ col:1, row:4, tag:'Premise 3', label:'What both imply' },
+  r3:{ col:0, row:5, tag:'Reply', label:'Why it follows', reply:true },
+  ec:{ col:0, row:6, tag:'Ending C', label:'Stops at Premise 3', end:true },
+  c: { col:1, row:6, tag:'Conclusion', label:'The paradox' },
+  x: { col:0, row:7, tag:'Contradiction', label:'Premises, not C', loop:true },
+  ed:{ col:1, row:7, tag:'Ending D', label:'Paradox accepted', end:true }
+};
+// [from, to, label, premise it settles, value, is a return arrow]
+const EDGES = [
+  ['p1','p2','Agree','P1',true], ['p1','r1','Disagree','P1',false], ['r1','p2','Agree now','P1',true], ['r1','ea','Still no','P1',false],
+  ['p2','p3','Agree','P2',true], ['p2','r2','Disagree','P2',false], ['r2','p3','Agree now','P2',true], ['r2','eb','Still no','P2',false],
+  ['p3','c','Agree','P3',true], ['p3','r3','Disagree','P3',false], ['r3','c','Agree now','P3',true], ['r3','ec','Still no','P3',false],
+  ['c','ed','Agree','C',true], ['c','x','Disagree','C',false],
+  ['x','p1','Back to P1',null,null,true], ['x','p2','Back to P2',null,null,true]
+];
+const outOf = id => EDGES.filter(e => e[0] === id);
+const edge = (a, b) => EDGES.find(e => e[0] === a && e[1] === b);
+function forward(id, seen) { seen.add(id); outOf(id).filter(e => !e[5]).forEach(e => { if (!seen.has(e[1])) forward(e[1], seen); }); return seen; }
+// what can still be reached; the return arrows only count while you stand at the contradiction
+function reach(id) { const seen = forward(id, new Set()); if (id === 'x') outOf(id).forEach(e => forward(e[1], seen)); return seen; }
+// commitments still in force: returning to a premise withdraws it and everything decided after it
+function premises(path) {
+  const v = {};
+  for (let i = 1; i < path.length; i++) {
+    const e = edge(path[i-1], path[i]);
+    if (!e[5]) v[e[3]] = e[4];
+    else (e[1] === 'p1' ? ['P1','P2','P3','C'] : ['P2','P3','C']).forEach(k => delete v[k]);
+  }
+  return v;
+}
+function activePath(path) {
+  let line = [path[0]];
+  for (let i = 1; i < path.length; i++) {
+    if (edge(path[i-1], path[i])[5]) line = line.slice(0, line.indexOf(path[i]) + 1);
+    else line.push(path[i]);
+  }
+  return line;
+}
+</script>
+<script id="content">
+// q() marks words taken directly from the essay
+const q = text => `<blockquote><span>From the essay</span>${text}</blockquote>`;
+const ASK = [['Agree',''],['Disagree','no']], AGAIN = [['Agree now',''],['Still disagree','no']];
+const SCREENS = {
+  p1:{ title:'Nicod’s Criterion holds.', choices:ASK, body:`
+    <p>When does an object count as evidence for a sentence of the form “All Ps are Qs”?</p>
+    ${q('an object that satisfies both the antecedent P and the consequent Q is sufficient to confirm the hypothesis sentence of the form “All Ps are Qs”.')}
+    <p>So a white dove confirms “All doves are white”, and a black raven confirms “All ravens are black”.</p>` },
+  r1:{ title:'The essay’s reply', choices:AGAIN, body:`
+    <p>Take “all planets orbit around a star”.</p>
+    ${q('To confirm this hypothesis, our intuition points us to look for planets and check if they indeed orbit around a star.')}
+    <p>Nicod’s Criterion spells this out in formal logic.</p>
+    ${q('the criterion establishes a kind of publicly objective way to assess what it takes to confirm hypotheses.')}` },
+  p2:{ title:'The Equivalence Condition holds.', choices:ASK, body:`
+    <p>“All ravens are black” (S1) and “All non-black objects are not ravens” (S2) say the same thing. Yet Nicod’s Criterion alone treats them differently:</p>
+    ${q('the same black raven object which confirms S1, does not confirm S2 under Nicod’s Criterion.')}
+    <p>The repair is the Equivalence Condition:</p>
+    ${q('for 2 sentences that are logically equivalent, an object that is a confirming evidence for one sentence also counts as a confirming evidence for the other sentence.')}` },
+  r2:{ title:'The essay’s reply', choices:AGAIN, body:`
+    <p>You might object that equivalent sentences do not share the same content, since</p>
+    ${q('a blue pen does not confirm the hypothesis “All ravens are black”.')}
+    <p>The essay answers that a claim about ravens also reaches other things:</p>
+    ${q('making a claim about ravens being black, simultaneously excludes non-ravens and non-black objects.')}
+    <p>Even if the contents differ, the two are like</p>
+    ${q('two sides of the same coin (even if both sides of the coin have different engravings, or express different content).')}` },
+  p3:{ title:'If both principles hold, then every object which is either not a raven or is black confirms that all ravens are black.', choices:ASK, body:`
+    <p>Add a third wording, S3: “Anything which is or is not a raven, is either not a raven or black.” Every object meets its first half, because anything is either a raven or not.</p>
+    <p>So a blue water bottle (not a raven) or a black marker (black) confirms S3. S3 is equivalent to S1:</p>
+    ${q('any object that is considered a confirming evidence for S3, the same object is also considered as a confirming evidence for S1.')}` },
+  r3:{ title:'The essay’s reply', choices:AGAIN, body:`
+    <p>The essay holds that this step is plain logic:</p>
+    ${q('every object that satisfies Nicod’s Criterion for one logically equivalent sentence, also satisfies the condition for confirming any other logically equivalent sentence.')}
+    <p>That holds however irrelevant the object seems.</p>` },
+  c:{ title:'Every object which is either not a raven or is black confirms that all ravens are black.', choices:ASK, body:`
+    <p>A water bottle seems to have nothing to do with ravens. But on these premises</p>
+    ${q('it still indirectly confirms the hypothesis about black ravens.')}
+    <p>The same goes for a black marker or a red pen. This is the paradox.</p>` },
+  x:{ title:'You cannot grant the premises and deny the conclusion.', tone:'warn', choices:[['↺ Back to Premise 1','back'],['↺ Back to Premise 2','back']], body:`
+    <ol class="proof">
+      <li><b>P3</b><span>If P1 and P2, then C.</span><code>(P1 ∧ P2) → C</code></li>
+      <li><b>You</b><span>Not C.</span><code>¬C</code></li>
+      <li><b>So</b><span>Not both P1 and P2.</span><code>¬(P1 ∧ P2)</code></li>
+      <li class="clash"><b>But</b><span>You agreed to both.</span><code>P1 ∧ P2</code></li>
+    </ol>
+    ${q('Since the extracted argument is valid, and I hold each of the premises in the argument to be true, then it stands to reason that I also find the paradoxical conclusion to be true.')}
+    <p>To keep disagreeing, go back and give up a premise.</p>` },
+  ea:{ title:'The argument stops at Premise 1.', tone:'bad', body:`
+    <p>Without Nicod’s Criterion, the argument cannot show that any object confirms “All ravens are black”. The conclusion is not established.</p>
+    <p>The essay parts ways with you here: it keeps the criterion as a systematic, public standard of evidence.</p>` },
+  eb:{ title:'The argument stops at Premise 2.', tone:'bad', body:`
+    <p>The paradox is blocked, but evidence now depends on wording: equivalent sentences can disagree about the same object.</p>
+    <p>The essay parts ways with you here: saying one sentence implicates saying the other.</p>` },
+  ec:{ title:'The argument stops at Premise 3.', tone:'bad', body:`
+    <p>You grant both principles but deny what they are said to imply, so the conclusion is not established.</p>
+    <p>The essay parts ways with you here: it holds that P3 follows logically from P1 and P2 together.</p>` },
+  ed:{ title:'You have reached the essay’s conclusion.', tone:'good', body:`
+    ${q('I believe non-ravens do indeed count as confirming evidence for the hypothesis sentence “All ravens are black”.')}
+    <p>So yes, a red pen can tell you something about ravens.</p>` }
+};
+</script>
+<script>
+const $ = id => document.getElementById(id);
+const state = { path:['p1'], preview:null };
+const here = () => state.path[state.path.length - 1];
+const phone = matchMedia('(max-width:800px)');
+const ROW = 94, H = 64, TAIL = 34, NAV = 60;
+
+function drawTree() {
+  const box = $('tree'), W = box.clientWidth; if (!W) return;
+  const now = here(), open = reach(now), shown = state.preview, line = activePath(state.path);
+  const after = shown ? reach(shown) : null;
+  const doomed = id => after && open.has(id) && id !== now && !after.has(id);
+  const nodeState = id => id === now ? 'here' : line.includes(id) ? 'done' : doomed(id) ? 'willclose' : open.has(id) ? 'open' : 'closed';
+  let returned = null; state.path.forEach((v,i) => { if (v === 'x' && state.path[i+1]) returned = state.path[i+1]; });
+  const width = Math.min(W * .4, 200), x = n => W * (NODES[n].col ? .64 : .21), top = n => NODES[n].row * ROW;
+  const right = x('p1') + width / 2, gutter = { p2: right + (W - right) * .3, p1: right + (W - right) * .78 };
+  const last = Math.max(...Object.values(NODES).map(n => n.row));
+  box.style.height = (last * ROW + H + TAIL) + 'px';
+  const edges = EDGES.map(([a,b,label,,,back]) => {
+    const taken = back ? now !== 'x' && returned === b : line.some((v,i) => v === a && line[i+1] === b);
+    let st = taken ? 'taken' : !open.has(a) ? 'closed' : a === now ? 'next' : 'open';
+    if (shown && ((a === now && b !== shown) || (!taken && (doomed(a) || (!back && doomed(b)))))) st = 'willclose';
+    let d, lx, ly;
+    if (back) {
+      const far = b === 'p1', sx = x(a) + (far ? -14 : 14), sy = top(a) + H, by = sy + (far ? 27 : 13), gx = gutter[b], ty = top(b) + H / 2, r = 7;
+      d = `M${sx} ${sy} V${by-r} Q${sx} ${by} ${sx+r} ${by} H${gx-r} Q${gx} ${by} ${gx} ${by-r} V${ty+r} Q${gx} ${ty} ${gx-r} ${ty} H${x(b) + width/2 + 2}`;
+      lx = gx; ly = far ? top(b) + ROW * 1.05 : top(b) + ROW * 1.7;
+    } else {
+      const x1 = x(a), y1 = top(a) + H, x2 = x(b), y2 = top(b) - 1, bend = Math.min(40, (y2 - y1) / 2);
+      d = `M${x1} ${y1} C${x1} ${y1+bend} ${x2} ${y2-bend} ${x2} ${y2}`;
+      lx = x1 + (x2 - x1) * (x1 === x2 ? 0 : .5); ly = y1 + 15;
+    }
+    const kind = back ? ' back' : '';
+    return { path:`<path class="edge ${st}${kind}" d="${d}" marker-end="url(#ah-${st}${back ? '-back' : ''})"/>`,
+             label:`<span class="el ${st}${kind}${back ? ' vert' : ''}" style="left:${lx}px;top:${ly}px">${label}</span>` };
+  });
+  const defs = ['open','taken','next','closed','willclose'].flatMap(h => ['', '-back'].map(k => `<marker id="ah-${h}${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path class="ah ${h}${k ? ' back' : ''}" d="M0 0L10 5L0 10z"/></marker>`)).join('');
+  const word = { here:'You are here', done:'Visited' };
+  box.innerHTML = `<svg aria-hidden="true"><defs>${defs}</defs>${edges.map(e => e.path).join('')}</svg>` + edges.map(e => e.label).join('') +
+    Object.keys(NODES).map(id => { const n = NODES[id], st = nodeState(id);
+      return `<button type="button" class="node ${st}${n.end?' end':''}${n.reply?' reply':''}${n.loop?' loop':''}" data-node="${id}" ${st === 'done' ? '' : 'disabled'} style="left:${x(id)}px;top:${top(id)}px;width:${width}px"><small>${st === 'here' ? 'You are here' : n.tag}</small><b>${n.label}</b></button>`; }).join('');
+}
+
+function drawCard() {
+  const id = here(), sc = SCREENS[id], n = NODES[id];
+  $('card').className = 'card' + (sc.tone ? ' ' + sc.tone : '');
+  $('peek').textContent = 'Hide';
+  $('kicker').textContent = n.reply ? `You disagreed with Premise ${id[1]}` : n.tag;
+  const again = state.path[state.path.length - 2] === 'x' ? '<p class="banner">↺ You refused the conclusion, so decide on this premise again.</p>' : '';
+  $('body').innerHTML = `<h2>${sc.title}</h2>${again}${sc.body}`;
+  $('actions').innerHTML = (sc.choices || []).map(([label, kind], i) => `<button type="button" class="choice ${kind}" data-door="${outOf(id)[i][1]}">${label}</button>`).join('');
+  $('undo').disabled = state.path.length === 1;
+}
+
+// put the card beside the current step; on phones, scroll the step into the space above the sheet
+function place(scroll) {
+  const card = $('card'), node = NODES[here()], mid = node.row * ROW + H / 2;
+  if (phone.matches) {
+    card.style.top = '';
+    document.body.style.paddingBottom = card.offsetHeight + 'px';
+    if (scroll) { const y = Math.max(0, $('tree').getBoundingClientRect().top + scrollY + mid - (NAV + innerHeight - card.offsetHeight) / 2);
+      scrollTo(0, y); }
+  } else {
+    document.body.style.paddingBottom = '';
+    const room = $('tree').offsetHeight - card.offsetHeight, y = Math.max(0, Math.min(mid - 70, room));
+    card.style.top = y + 'px';
+    card.style.setProperty('--tip', Math.max(16, Math.min(mid - y - 7, card.offsetHeight - 30)) + 'px');
+    if (scroll) { const t = $('tree').getBoundingClientRect().top + scrollY + y;
+      if (t < scrollY + NAV || t + card.offsetHeight > scrollY + innerHeight) scrollTo(0, Math.max(0, t - NAV - 16)); }
+  }
+}
+
+function show(scroll = true) { state.preview = null; drawCard(); drawTree(); $('card').scrollTop = 0; place(scroll); }
+function choose(to) { if (!outOf(here()).some(e => e[1] === to)) return; state.path.push(to); show(); const h = $('body').querySelector('h2'); h.tabIndex = -1; h.focus({ preventScroll:true }); }
+
+document.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.door) choose(b.dataset.door);
+  else if (b.dataset.node) { const i = state.path.lastIndexOf(b.dataset.node); if (i >= 0) { state.path.length = i + 1; show(); } }
+  else if (b.id === 'undo') { state.path.pop(); show(); }
+  else if (b.id === 'restart') { state.path = ['p1']; show(); }
+  else if (b.id === 'peek') { const hidden = $('card').classList.toggle('hidden-body'); b.textContent = hidden ? 'Show' : 'Hide'; place(false); }
+});
+const preview = to => { if (state.preview !== to) { state.preview = to; drawTree(); } };
+if (matchMedia('(hover:hover)').matches) {
+  ['pointerover','focusin'].forEach(t => $('actions').addEventListener(t, e => { const d = e.target.closest('[data-door]'); if (d && (t === 'pointerover' || d.matches(':focus-visible'))) preview(d.dataset.door); }));
+  ['pointerout','focusout'].forEach(t => $('actions').addEventListener(t, e => { if (e.target.closest('[data-door]')) preview(null); }));
+}
+new ResizeObserver(() => { drawTree(); place(false); }).observe($('tree'));
+if (document.fonts) document.fonts.ready.then(() => place(false));
+show(false);
+</script>
+<script src="script.js?v=3"></script>
+<script src="theme.js"></script>
+</body>
+</html>
